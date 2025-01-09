@@ -43,7 +43,7 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
     if (formData.splitType === "custom") {
       const { splits: newSplits } = splitter(
         formData.splitType as "equal" | "percentage",
-        formData.amount,
+        Number(formData.amount),
         allMembers,
         formData.paidBy
       );
