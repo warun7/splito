@@ -41,7 +41,7 @@ export default function CreateGroupPage() {
 
     switch (formData.splitType) {
       case "equal":
-        const equalAmount = formData.amount / allMembers.length;
+        const equalAmount = Number(formData.amount) / allMembers.length;
         newSplits = allMembers.map((addr) => ({
           address: addr,
           amount: equalAmount,
