@@ -40,7 +40,7 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
       new Set([address, ...memberAddresses])
     ).filter(Boolean);
 
-    if (formData.splitType === "custom") 
+    if (formData.splitType === "custom") {
       const { splits: newSplits } = splitter(
         formData.splitType as "equal" | "percentage",
         formData.amount,
