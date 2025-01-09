@@ -52,7 +52,7 @@ export default function CreateGroupPage() {
         const equalPercentage = 100 / allMembers.length;
         newSplits = allMembers.map((addr) => ({
           address: addr,
-          amount: (formData.amount * equalPercentage) / 100,
+          amount: (Number(formData.amount) * equalPercentage) / 100,
           percentage: equalPercentage,
         }));
         break;
