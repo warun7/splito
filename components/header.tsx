@@ -5,6 +5,10 @@ import { useWallet } from "@/hooks/useWallet";
 import { useMobileMenu } from "@/contexts/mobile-menu";
 import { PageTitle } from "./page-title";
 
+interface AddressObject {
+  address: string;
+}
+
 export function Header() {
   const { isOpen, toggle } = useMobileMenu();
   const {
@@ -23,11 +27,12 @@ export function Header() {
     }
   };
 
-  const formatAddress = (address: string | null | undefined) => {
+  const formatAddress = (
+    address: string | null | undefined | AddressObject
+  ) => {
     if (!address) return "No Address";
     if (typeof address === "object") {
-      // If address is an object with an address property
-      return (address as any).address || "No Address";
+      return address.address || "No Address";
     }
     return address;
   };
