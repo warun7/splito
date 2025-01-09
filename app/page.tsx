@@ -11,7 +11,7 @@ import {
 } from "@/utils/calculations";
 
 export default function Page() {
-  const { isConnected, balance, address } = useWallet();
+  const { isConnected, address } = useWallet();
   const { groups } = useGroups();
 
   const { totalOwed, totalOwe, netBalance } = calculateBalances(
@@ -44,14 +44,6 @@ export default function Page() {
                 <>You're all settled up!</>
               )}
             </h2>
-            {isConnected && (
-              <div className="mt-4 rounded-lg border border-white/10 bg-[#1F1F23]/50 p-4">
-                <p className="text-base lg:text-lg text-white">
-                  Wallet Balance:{" "}
-                  <span className="font-medium">{balance} ETH</span>
-                </p>
-              </div>
-            )}
           </div>
           <TransactionList transactions={transactions} />
         </div>

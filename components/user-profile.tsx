@@ -5,7 +5,7 @@ import { Users } from "lucide-react";
 import Image from "next/image";
 
 export function UserProfile() {
-  const { isConnected, address, balance } = useWallet();
+  const { isConnected, address } = useWallet();
 
   if (!isConnected || !address) {
     return (
@@ -33,9 +33,10 @@ export function UserProfile() {
       </div>
       <div>
         <p className="font-medium text-white">
-          {address.slice(0, 6)}...{address.slice(-4)}
+          {typeof address === "string" && address.length >= 10
+            ? `${address.slice(0, 6)}...${address.slice(-4)}`
+            : "No Address"}
         </p>
-        <p className="text-sm text-white/50">{balance} ETH</p>
       </div>
     </div>
   );

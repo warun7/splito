@@ -23,8 +23,13 @@ export function Header() {
     }
   };
 
-  const formatAddress = (address: string) => {
-    return `${address.slice(0, 6)}...${address.slice(-4)}`;
+  const formatAddress = (address: string | null | undefined) => {
+    if (!address) return "No Address";
+    if (typeof address === "object") {
+      // If address is an object with an address property
+      return (address as any).address || "No Address";
+    }
+    return address;
   };
 
   return (

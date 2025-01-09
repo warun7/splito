@@ -47,8 +47,8 @@ export function TransactionRequests() {
             key={request.id}
             className="group relative overflow-hidden rounded-lg bg-[#1F1F23] p-3 transition-all duration-200 hover:bg-[#2a2a2e] lg:p-5"
           >
-            <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-              <div className="flex items-center gap-3 lg:gap-4">
+            <div className="flex flex-col gap-4">
+              <div className="flex items-center gap-3">
                 <div className="relative h-10 w-10 flex-shrink-0 lg:h-12 lg:w-12">
                   <div className="absolute inset-0 rounded-full bg-white/10 ring-2 ring-white/5">
                     {request.user.image ? (
@@ -79,7 +79,7 @@ export function TransactionRequests() {
                   </div>
                 </div>
               </div>
-              <div className="flex gap-2 self-end lg:self-auto">
+              <div className="flex gap-2 justify-end">
                 <button className="flex h-8 w-8 items-center justify-center rounded-full bg-[#67B76C] text-white transition-all hover:bg-[#5aa55e] hover:shadow-[0_0_15px_rgba(103,183,108,0.3)] lg:h-10 lg:w-10">
                   <Check className="h-4 w-4 lg:h-5 lg:w-5" />
                 </button>
