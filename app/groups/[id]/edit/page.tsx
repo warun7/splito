@@ -83,7 +83,7 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
 
   const validateSplits = () => {
     const totalSplit = splits.reduce((sum, split) => sum + split.amount, 0);
-    return Math.abs(totalSplit - formData.amount) < 0.01; // Allow for small floating point differences
+    return Math.abs(totalSplit - Number(formData.amount)) < 0.01;
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -136,7 +136,7 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
         split.address === address
           ? {
               ...split,
-              amount: (formData.amount * percentage) / 100,
+              amount: (Number(formData.amount) * percentage) / 100,
               percentage: percentage,
             }
           : split
