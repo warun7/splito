@@ -13,10 +13,12 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
   const group = groups.find((g) => g.id === params.id);
 
   const [splits, setSplits] = useState<Split[]>([]);
+  const [percentages, setPercentages] = useState<{ [key: string]: number }>({});
+
   const [formData, setFormData] = useState({
     name: group?.name || "",
     description: group?.description || "",
-    amount: group?.amount || 0,
+    amount: group?.amount || "",
     members: group?.members.join(", ") || "",
     splitType: group?.splitType || "equal",
     currency: group?.currency || "USD",
@@ -39,12 +41,6 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
     ).filter(Boolean);
 
     if (formData.splitType === "custom") {
-      const newSplits = allMembers.map((addr) => ({
-        address: addr,
-        amount: splits.find((s) => s.address === addr)?.amount || 0,
-      }));
-      setSplits(newSplits);
-    } else {
       const { splits: newSplits } = splitter(
         formData.splitType as "equal" | "percentage",
         formData.amount,
@@ -59,7 +55,6 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
     formData.splitType,
     formData.paidBy,
     address,
-    splits,
   ]);
 
   const calculateDebts = (splits: Split[], paidBy: string): Debt[] => {
@@ -128,6 +123,25 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
       ...prev,
       splitType: newSplitType,
     }));
+  };
+
+  const updatePercentage = (address: string, percentage: number) => {
+    setPercentages((current) => ({
+      ...current,
+      [address]: percentage,
+    }));
+
+    setSplits((current) =>
+      current.map((split) =>
+        split.address === address
+          ? {
+              ...split,
+              amount: (formData.amount * percentage) / 100,
+              percentage: percentage,
+            }
+          : split
+      )
+    );
   };
 
   if (!group) return null;
@@ -291,7 +305,10 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
               id="splitType"
               value={formData.splitType}
               onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
-                const newSplitType = e.target.value as "equal" | "percentage" | "custom";
+                const newSplitType = e.target.value as
+                  | "equal"
+                  | "percentage"
+                  | "custom";
                 setFormData((prev) => ({ ...prev, splitType: newSplitType }));
               }}
               className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white"
@@ -319,6 +336,39 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
           </div>
         </form>
       </div>
+
+      {formData.splitType === "percentage" && splits.length > 0 && (
+        <div className="mt-6 space-y-4">
+          <h3 className="text-lg font-medium text-white">Percentage Split</h3>
+          {splits.map((split) => (
+            <div key={split.address} className="flex items-center gap-4">
+              <span className="text-sm text-white/70">
+                {split.address === address ? "You" : split.address}
+              </span>
+              <input
+                type="number"
+                min="0"
+                max="100"
+                value={percentages[split.address] || 0}
+                onChange={(e) =>
+                  updatePercentage(split.address, Number(e.target.value))
+                }
+                className="mt-2 block w-32 rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white"
+                placeholder="Percentage"
+              />
+              <span className="text-sm text-white/70">%</span>
+            </div>
+          ))}
+          <div className="mt-2 text-sm text-white/70">
+            Total: {Object.values(percentages).reduce((sum, p) => sum + p, 0)}%
+            {Math.abs(
+              Object.values(percentages).reduce((sum, p) => sum + p, 0) - 100
+            ) > 0.01 && (
+              <span className="text-[#FF4444] ml-2">(Must equal 100%)</span>
+            )}
+          </div>
+        </div>
+      )}
 
       {formData.splitType === "custom" && splits.length > 0 && (
         <div className="mt-6 space-y-4">

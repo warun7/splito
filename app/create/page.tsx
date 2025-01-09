@@ -20,7 +20,7 @@ export default function CreateGroupPage() {
   const [formData, setFormData] = useState({
     name: "",
     description: "",
-    amount: 0,
+    amount: "",
     members: "",
     paidBy: "",
     splitType: "equal",
@@ -236,7 +236,7 @@ export default function CreateGroupPage() {
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    amount: Number(e.target.value),
+                    amount: e.target.value ? Number(e.target.value) : "",
                   }))
                 }
                 className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white placeholder-white/50 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20"
@@ -347,13 +347,14 @@ export default function CreateGroupPage() {
                     {split.address === address ? "You" : split.address}
                   </span>
                   <input
-                    type="number"
-                    min="0"
-                    max="100"
-                    value={percentages[split.address] || 0}
-                    onChange={(e) =>
-                      updatePercentage(split.address, Number(e.target.value))
-                    }
+                    type="text"
+                    value={percentages[split.address] || ""}
+                    onChange={(e) => {
+                      const value = e.target.value;
+                      if (/^\d*$/.test(value) && Number(value) <= 100) {
+                        updatePercentage(split.address, Number(value));
+                      }
+                    }}
                     className="mt-2 block w-32 rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white"
                     placeholder="Percentage"
                   />
