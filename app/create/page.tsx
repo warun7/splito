@@ -88,7 +88,7 @@ export default function CreateGroupPage() {
         split.address === address
           ? {
               ...split,
-              amount: (formData.amount * percentage) / 100,
+              amount: (Number(formData.amount) * percentage) / 100,
               percentage: percentage,
             }
           : split
