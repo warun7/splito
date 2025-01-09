@@ -236,7 +236,7 @@ export default function CreateGroupPage() {
                 onChange={(e) =>
                   setFormData((prev) => ({
                     ...prev,
-                    amount: e.target.value ? Number(e.target.value) : "",
+                    amount: e.target.value,
                   }))
                 }
                 className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white placeholder-white/50 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20"
