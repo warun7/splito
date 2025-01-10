@@ -29,3 +29,31 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #2a2a2e;
 }
+
+/* Remove increment/decrement buttons */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+/* Improved form styles */
+.form-input,
+.form-select,
+.form-textarea {
+  @apply w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-3 text-white 
+  placeholder-white/50 transition-colors duration-200
+  focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-white/90 mb-2;
+}
+
+.form-group {
+  @apply space-y-1.5;
+}

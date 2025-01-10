@@ -393,6 +393,14 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
           <div className="mt-2 text-sm text-white/70">
             Total: {splits.reduce((sum, split) => sum + split.amount, 0)}{" "}
             {formData.currency}
+            {Math.abs(
+              splits.reduce((sum, split) => sum + split.amount, 0) -
+                Number(formData.amount)
+            ) > 0.01 && (
+              <span className="text-[#FF4444] ml-2">
+                (Must equal total amount: {formData.amount} {formData.currency})
+              </span>
+            )}
           </div>
         </div>
       )}

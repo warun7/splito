@@ -116,11 +116,21 @@ export default function CreateGroupPage() {
     return debts;
   };
 
+  const validateSplits = () => {
+    const totalSplit = splits.reduce((sum, split) => sum + split.amount, 0);
+    return Math.abs(totalSplit - Number(formData.amount)) < 0.01;
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isConnected || !address) {
       alert("Please connect your wallet first!");
+      return;
+    }
+
+    if (formData.splitType === "custom" && !validateSplits()) {
+      alert("The sum of splits must equal the total amount!");
       return;
     }
 
@@ -169,7 +179,7 @@ export default function CreateGroupPage() {
   }, [formData.members, formData.splitType, address]);
 
   return (
-    <div className="max-w-2xl">
+    <div className="w-full max-w-8xl">
       <div className="mb-8">
         <h1 className="text-2xl lg:text-3xl font-semibold text-white">
           Create New Group
@@ -177,134 +187,161 @@ export default function CreateGroupPage() {
         <p className="mt-2 text-white/70">Create a new expense sharing group</p>
       </div>
 
-      <div className="rounded-xl border border-white/10 bg-[#1F1F23]/50 p-6">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-white"
-            >
-              Group Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              value={formData.name}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, name: e.target.value }))
-              }
-              className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white placeholder-white/50 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20"
-              placeholder="Enter group name"
-              required
-            />
-          </div>
+      <div className="rounded-xl border border-white/10 bg-[#1F1F23]/50 p-8">
+        <form onSubmit={handleSubmit} className="space-y-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Left Column */}
+            <div className="space-y-6">
+              <div className="form-group">
+                <label htmlFor="name" className="form-label">
+                  Group Name
+                </label>
+                <input
+                  type="text"
+                  id="name"
+                  value={formData.name}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, name: e.target.value }))
+                  }
+                  className="form-input"
+                  placeholder="Enter group name"
+                  required
+                />
+              </div>
 
-          <div>
-            <label
-              htmlFor="description"
-              className="block text-sm font-medium text-white"
-            >
-              Description
-            </label>
-            <textarea
-              id="description"
-              value={formData.description}
-              onChange={(e) =>
-                setFormData((prev) => ({
-                  ...prev,
-                  description: e.target.value,
-                }))
-              }
-              rows={4}
-              className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white placeholder-white/50 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20"
-              placeholder="Enter group description"
-            />
-          </div>
+              <div className="form-group">
+                <label htmlFor="description" className="form-label">
+                  Description
+                </label>
+                <textarea
+                  id="description"
+                  value={formData.description}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      description: e.target.value,
+                    }))
+                  }
+                  rows={4}
+                  className="form-input"
+                  placeholder="Enter group description"
+                />
+              </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label
-                htmlFor="amount"
-                className="block text-sm font-medium text-white"
-              >
-                Amount
-              </label>
-              <input
-                type="number"
-                id="amount"
-                value={formData.amount}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    amount: e.target.value,
-                  }))
-                }
-                className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white placeholder-white/50 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20"
-                placeholder="0.00"
-                required
-              />
+              <div className="form-group">
+                <label htmlFor="members" className="form-label">
+                  Members (Wallet Addresses)
+                </label>
+                <input
+                  type="text"
+                  id="members"
+                  value={formData.members}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      members: e.target.value,
+                    }))
+                  }
+                  className="form-input"
+                  placeholder="Enter wallet addresses separated by commas"
+                  required
+                />
+              </div>
             </div>
 
-            <div>
-              <label
-                htmlFor="currency"
-                className="block text-sm font-medium text-white"
-              >
-                Currency
-              </label>
-              <select
-                id="currency"
-                value={formData.currency}
-                onChange={(e) =>
-                  setFormData((prev) => ({ ...prev, currency: e.target.value }))
-                }
-                className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white"
-              >
-                <option value="USD">USD</option>
-                <option value="ETH">ETH</option>
-              </select>
+            {/* Right Column */}
+            <div className="space-y-6">
+              <div className="grid grid-cols-2 gap-4">
+                <div className="form-group">
+                  <label htmlFor="amount" className="form-label">
+                    Amount
+                  </label>
+                  <div className="relative flex items-center">
+                    <span className="absolute left-4 text-white/50 pointer-events-none select-none">
+                      {formData.currency === "USD" ? "$" : ""}
+                    </span>
+                    <input
+                      type="number"
+                      id="amount"
+                      value={formData.amount}
+                      onChange={(e) =>
+                        setFormData((prev) => ({
+                          ...prev,
+                          amount: e.target.value,
+                        }))
+                      }
+                      className="form-input !pl-8 w-full"
+                      style={{ paddingLeft: "2rem" }}
+                      placeholder="0.00"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="currency" className="form-label">
+                    Currency
+                  </label>
+                  <select
+                    id="currency"
+                    value={formData.currency}
+                    onChange={(e) =>
+                      setFormData((prev) => ({
+                        ...prev,
+                        currency: e.target.value,
+                      }))
+                    }
+                    className="form-input"
+                  >
+                    <option value="USD">USD</option>
+                    <option value="ETH">ETH</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="splitType" className="form-label">
+                  Split Type
+                </label>
+                <select
+                  id="splitType"
+                  value={formData.splitType}
+                  onChange={(e) =>
+                    setFormData((prev) => ({
+                      ...prev,
+                      splitType: e.target.value,
+                    }))
+                  }
+                  className="form-input"
+                >
+                  <option value="equal">Equal Split</option>
+                  <option value="percentage">Percentage Split</option>
+                  <option value="custom">Custom Split</option>
+                </select>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="paidBy" className="form-label">
+                  Paid By
+                </label>
+                <select
+                  id="paidBy"
+                  value={formData.paidBy}
+                  onChange={(e) =>
+                    setFormData((prev) => ({ ...prev, paidBy: e.target.value }))
+                  }
+                  className="form-input"
+                >
+                  <option value="">Select who paid</option>
+                  <option value={address!}>You</option>
+                  {formData.members.split(",").map((member) => (
+                    <option key={member.trim()} value={member.trim()}>
+                      {member.trim()}
+                    </option>
+                  ))}
+                </select>
+              </div>
             </div>
-          </div>
-
-          <div>
-            <label
-              htmlFor="members"
-              className="block text-sm font-medium text-white"
-            >
-              Members (Wallet Addresses)
-            </label>
-            <input
-              type="text"
-              id="members"
-              value={formData.members}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, members: e.target.value }))
-              }
-              className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white placeholder-white/50 focus:border-white/20 focus:outline-none focus:ring-1 focus:ring-white/20"
-              placeholder="Enter wallet addresses separated by commas"
-              required
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="splitType"
-              className="block text-sm font-medium text-white"
-            >
-              Split Type
-            </label>
-            <select
-              id="splitType"
-              value={formData.splitType}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, splitType: e.target.value }))
-              }
-              className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white"
-            >
-              <option value="equal">Equal Split</option>
-              <option value="percentage">Percentage Split</option>
-              <option value="custom">Custom Split</option>
-            </select>
           </div>
 
           {formData.splitType === "custom" && splits.length > 0 && (
@@ -321,7 +358,7 @@ export default function CreateGroupPage() {
                     onChange={(e) =>
                       updateCustomSplit(split.address, Number(e.target.value))
                     }
-                    className="mt-2 block w-32 rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white"
+                    className="form-input w-32"
                     placeholder="Amount"
                   />
                   <span className="text-sm text-white/70">
@@ -332,6 +369,15 @@ export default function CreateGroupPage() {
               <div className="mt-2 text-sm text-white/70">
                 Total: {splits.reduce((sum, split) => sum + split.amount, 0)}{" "}
                 {formData.currency}
+                {Math.abs(
+                  splits.reduce((sum, split) => sum + split.amount, 0) -
+                    Number(formData.amount)
+                ) > 0.01 && (
+                  <span className="text-[#FF4444] ml-2">
+                    (Must equal total amount: {formData.amount}{" "}
+                    {formData.currency})
+                  </span>
+                )}
               </div>
             </div>
           )}
@@ -374,42 +420,19 @@ export default function CreateGroupPage() {
             </div>
           )}
 
-          <div>
-            <label
-              htmlFor="paidBy"
-              className="block text-sm font-medium text-white"
-            >
-              Paid By
-            </label>
-            <select
-              id="paidBy"
-              value={formData.paidBy}
-              onChange={(e) =>
-                setFormData((prev) => ({ ...prev, paidBy: e.target.value }))
-              }
-              className="mt-2 block w-full rounded-lg border border-white/10 bg-[#1F1F23] px-4 py-2 text-white"
-            >
-              <option value="">Select who paid</option>
-              <option value={address!}>You</option>
-              {formData.members.split(",").map((member) => (
-                <option key={member.trim()} value={member.trim()}>
-                  {member.trim()}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="flex gap-4">
+          <div className="flex gap-4 pt-4">
             <button
               type="submit"
-              className="flex-1 rounded-lg bg-white px-4 py-2 text-center text-sm font-medium text-black transition-colors hover:bg-white/90"
+              className="flex-1 rounded-lg bg-white px-6 py-3 text-center text-sm font-medium text-black 
+              transition-all duration-200 hover:bg-white/90 active:scale-[0.98]"
             >
               Create Group
             </button>
             <button
               type="button"
               onClick={() => router.back()}
-              className="flex-1 rounded-lg border border-white/10 px-4 py-2 text-center text-sm font-medium text-white"
+              className="flex-1 rounded-lg border border-white/10 px-6 py-3 text-center text-sm 
+              font-medium text-white transition-all duration-200 hover:bg-white/5 active:scale-[0.98]"
             >
               Cancel
             </button>
