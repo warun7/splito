@@ -43,7 +43,7 @@ export function Header() {
               <Menu className="h-6 w-6 text-white" />
             )}
           </button>
-          <h1 className="text-2xl font-semibold text-white lg:text-3xl">
+          <h1 className="text-2xl font-semibold text-white whitespace-nowrap">
             <PageTitle />
           </h1>
         </div>

@@ -17,11 +17,10 @@ const navigation = [
 export function Sidebar() {
   const pathname = usePathname();
   const { isOpen, close } = useMobileMenu();
-  const logo = "/logo.png";
+  const logo = "/logo.svg";
 
   return (
     <>
-      {/* Backdrop */}
       {isOpen && (
         <div
           className="fixed inset-0 bg-black/50 backdrop-blur-sm lg:hidden"
@@ -29,7 +28,6 @@ export function Sidebar() {
         />
       )}
 
-      {/* Sidebar */}
       <div
         className={cn(
           "fixed left-0 top-0 z-20 h-screen w-[280px] border-r border-white/10 bg-[#101012] transition-transform duration-300 lg:translate-x-0",
@@ -40,10 +38,11 @@ export function Sidebar() {
           <Link href="/" className="block" onClick={close}>
             <Image
               src={logo}
-              alt=""
-              width={1000}
-              height={1000}
+              alt="Logo"
+              width={140}
+              height={56}
               className="h-14 w-auto"
+              priority
             />
           </Link>
         </div>

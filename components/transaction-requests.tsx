@@ -37,7 +37,7 @@ const requests: Request[] = [
 
 export function TransactionRequests() {
   return (
-    <div className="rounded-xl border border-white/10 bg-[#101012] p-4 shadow-lg lg:p-6">
+    <div className="rounded-xl bg-[#101012] p-4 lg:p-6">
       <h2 className="mb-6 text-xl font-semibold text-white">
         Transaction Requests
       </h2>
@@ -45,7 +45,7 @@ export function TransactionRequests() {
         {requests.map((request) => (
           <div
             key={request.id}
-            className="group relative overflow-hidden rounded-lg bg-[#1F1F23] p-3 transition-all duration-200 hover:bg-[#2a2a2e] lg:p-5"
+            className="group relative overflow-hidden rounded-xl bg-[#101012] p-3 transition-all duration-200 hover:bg-[#2a2a2e] lg:p-5"
           >
             <div className="flex flex-col gap-4">
               <div className="flex items-center gap-3">

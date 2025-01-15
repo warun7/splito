@@ -11,7 +11,7 @@ export function PageTitle() {
     if (pathname === "/create") return "Create";
     if (pathname.startsWith("/groups/") && pathname.endsWith("/edit"))
       return "Edit";
-    return "Split Expenses";
+    return "Group Overview";
   };
 
   return (
