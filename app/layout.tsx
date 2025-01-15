@@ -22,7 +22,7 @@ export default function RootLayout({
               <div className="min-[1025px]:pl-[280px]">
                 <Header />
                 <main className="mt-[80px] bg-[#101012] p-4 min-[1025px]:p-8">
-                  <div className="mx-auto max-w-[1200px]">{children}</div>
+                  <div className="w-full">{children}</div>
                 </main>
               </div>
             </div>
