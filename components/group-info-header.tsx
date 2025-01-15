@@ -12,7 +12,7 @@ export function GroupInfoHeader({ groupId }: { groupId: string }) {
 
   return (
     <div className="mb-8">
-      <div className="flex items-start justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
         <div className="flex flex-col gap-2">
           <h1 className="text-2xl lg:text-3xl font-semibold text-white">
             {group.name}
@@ -24,8 +24,8 @@ export function GroupInfoHeader({ groupId }: { groupId: string }) {
             </span>
           </div>
         </div>
-        <div className="flex flex-col gap-3">
-          <div className="animate-border-light w-[173px]">
+        <div className="flex gap-3">
+          <div className="animate-border-light w-full sm:w-[173px]">
             <button
               onClick={() => router.push(`/groups/${groupId}/edit`)}
               className="w-full h-[46px] rounded-[15px] bg-[#262627] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors"
@@ -33,9 +33,11 @@ export function GroupInfoHeader({ groupId }: { groupId: string }) {
               Add Expense
             </button>
           </div>
-          <button className="w-[173px] h-[46px] rounded-[15px] border border-white bg-[#262627] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors">
-            Settle Debts
-          </button>
+          <div className="animate-border-light w-full sm:w-[173px]">
+            <button className="w-full h-[46px] rounded-[15px] bg-[#262627] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors">
+              Settle Debts
+            </button>
+          </div>
         </div>
       </div>
     </div>

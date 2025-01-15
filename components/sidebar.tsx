@@ -23,14 +23,14 @@ export function Sidebar() {
     <>
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm lg:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm min-[1025px]:hidden"
           onClick={close}
         />
       )}
 
       <div
         className={cn(
-          "fixed left-0 top-0 z-20 h-screen w-[280px] border-r border-white/10 bg-[#101012] transition-transform duration-300 lg:translate-x-0",
+          "fixed left-0 top-0 z-20 h-screen w-[280px] border-r border-white/10 bg-[#101012] transition-transform duration-300 min-[1025px]:translate-x-0",
           isOpen ? "translate-x-0" : "-translate-x-full"
         )}
       >

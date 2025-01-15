@@ -33,22 +33,22 @@ export function Header() {
   };
 
   return (
-    <div className="fixed left-0 right-0 top-0 z-10 lg:left-[280px]">
-      <div className="flex h-[80px] items-center justify-between border-b border-white/10 bg-[#101012]/80 px-4 backdrop-blur-md lg:px-8">
+    <div className="fixed left-0 right-0 top-0 z-10 min-[1025px]:left-[280px] min-[1025px]:right-0">
+      <div className="flex h-[80px] items-center justify-between border-b border-white/10 bg-[#101012]/80 px-4 backdrop-blur-md min-[1025px]:px-8">
         <div className="flex items-center gap-4 w-[200px]">
-          <button onClick={toggle} className="lg:hidden">
+          <button onClick={toggle} className="min-[1025px]:hidden">
             {isOpen ? (
               <X className="h-6 w-6 text-white" />
             ) : (
               <Menu className="h-6 w-6 text-white" />
             )}
           </button>
-          <h1 className="text-2xl font-semibold text-white whitespace-nowrap">
+          <h1 className="text-xl sm:text-2xl font-semibold text-white whitespace-nowrap">
             <PageTitle />
           </h1>
         </div>
 
-        <div className="hidden lg:block flex-1 max-w-[400px]">
+        <div className="hidden min-[1025px]:block flex-1 max-w-[400px]">
           <div className="flex h-12 items-center rounded-full bg-[#1F1F23]">
             <input
               type="text"
@@ -63,7 +63,7 @@ export function Header() {
           <button
             onClick={handleWalletClick}
             disabled={isConnecting}
-            className="group relative flex h-12 items-center gap-2 rounded-full border border-white/20 bg-transparent px-6 text-sm font-medium text-white transition-all duration-300 hover:border-white/40 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] disabled:cursor-not-allowed disabled:opacity-50"
+            className="group relative flex h-10 sm:h-12 items-center gap-2 rounded-full border border-white/20 bg-transparent px-4 sm:px-6 text-sm font-medium text-white transition-all duration-300 hover:border-white/40 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)] disabled:cursor-not-allowed disabled:opacity-50"
             onMouseMove={(e) => {
               const rect = e.currentTarget.getBoundingClientRect();
               const x = e.clientX - rect.left;
@@ -86,11 +86,11 @@ export function Header() {
             </span>
           </button>
 
-          <button className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1F1F23] transition-colors hover:bg-[#2a2a2e]">
+          <button className="hidden sm:flex h-12 w-12 items-center justify-center rounded-full bg-[#1F1F23] transition-colors hover:bg-[#2a2a2e]">
             <Bell className="h-5 w-5 text-white" strokeWidth={1.5} />
           </button>
 
-          <button className="flex h-12 w-12 items-center justify-center rounded-full bg-[#1F1F23] transition-colors hover:bg-[#2a2a2e]">
+          <button className="hidden sm:flex h-12 w-12 items-center justify-center rounded-full bg-[#1F1F23] transition-colors hover:bg-[#2a2a2e]">
             <Settings className="h-5 w-5 text-white" strokeWidth={1.5} />
           </button>
         </div>

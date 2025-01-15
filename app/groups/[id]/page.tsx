@@ -17,7 +17,7 @@ export default function GroupDetailsPage({
   if (!group) return null;
 
   return (
-    <div className="max-w-5xl space-y-8">
+    <div className="w-full space-y-8">
       <GroupInfoHeader groupId={params.id} />
 
       <div>
@@ -154,7 +154,7 @@ export default function GroupDetailsPage({
                         )}
                       </p>
                       <p className="text-sm text-white/50">
-                        Will pay you the next 5 days
+                        Message status
                       </p>
                     </div>
                   </div>

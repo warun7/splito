@@ -19,10 +19,10 @@ export default function RootLayout({
           <Providers>
             <div className="min-h-screen bg-[#101012]">
               <Sidebar />
-              <div className="lg:pl-[280px]">
+              <div className="min-[1025px]:pl-[280px]">
                 <Header />
-                <main className="mt-[80px] bg-[#101012] p-4 lg:p-8">
-                  {children}
+                <main className="mt-[80px] bg-[#101012] p-4 min-[1025px]:p-8">
+                  <div className="mx-auto max-w-[1200px]">{children}</div>
                 </main>
               </div>
             </div>
