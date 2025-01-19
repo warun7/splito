@@ -28,13 +28,13 @@ export function GroupInfoHeader({ groupId }: { groupId: string }) {
           <div className="animate-border-light w-full sm:w-[173px]">
             <button
               onClick={() => router.push(`/groups/${groupId}/edit`)}
-              className="w-full h-[46px] rounded-[15px] bg-[#262627] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors"
+              className="w-full h-[46px] rounded-[15px] bg-[#000000] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors"
             >
               Add Expense
             </button>
           </div>
           <div className="animate-border-light w-full sm:w-[173px]">
-            <button className="w-full h-[46px] rounded-[15px] bg-[#262627] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors">
+            <button className="w-full h-[46px] rounded-[15px] bg-[#000000] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors">
               Settle Debts
             </button>
           </div>

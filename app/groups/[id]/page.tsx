@@ -32,7 +32,7 @@ export default function GroupDetailsPage({
         <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent mb-6" />
 
         <div className="grid grid-cols-1 gap-4">
-          <div className="grid grid-cols-4 gap-4 px-4 py-2 text-sm text-white/70">
+          <div className="grid grid-cols-4 gap-4 px-2 py-2 text-sm text-white/70">
             <div>Member</div>
             <div className="text-right">Owe</div>
             <div className="text-right">Owed</div>
@@ -57,10 +57,10 @@ export default function GroupDetailsPage({
             return (
               <div
                 key={member}
-                className="grid grid-cols-4 gap-4 items-center px-4 py-3"
+                className="grid grid-cols-4 gap-4 items-center px-2 py-3"
               >
-                <div className="flex items-center gap-3">
-                  <div className="h-10 w-10 overflow-hidden rounded-full">
+                <div className="flex items-center gap-2">
+                  <div className="h-8 w-8 sm:h-10 sm:w-10 overflow-hidden rounded-full">
                     <Image
                       src={`https://api.dicebear.com/7.x/avataaars/svg?seed=${member}`}
                       alt={member}
@@ -69,8 +69,8 @@ export default function GroupDetailsPage({
                       className="h-full w-full"
                     />
                   </div>
-                  <span className="font-medium text-white">
-                    {member.slice(0, 6)}...{member.slice(-4)}
+                  <span className="font-medium text-white text-sm sm:text-base">
+                    {member.slice(0, 5)}...{member.slice(-2)}
                   </span>
                 </div>
                 <div className="text-right text-[#FF4444]">
@@ -127,7 +127,7 @@ export default function GroupDetailsPage({
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-3">
                       <h3 className="text-xl text-white font-medium">
-                        {debt.from.slice(0, 6)}...{debt.from.slice(-4)}
+                        {debt.from.slice(0, 5)}...{debt.from.slice(-2)}
                       </h3>
                       <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#07091E]/50">
                         <div className="h-1.5 w-1.5 rounded-full bg-[#FFC107]" />
@@ -153,9 +153,7 @@ export default function GroupDetailsPage({
                           </>
                         )}
                       </p>
-                      <p className="text-sm text-white/50">
-                        Message status
-                      </p>
+                      <p className="text-sm text-white/50">Message status</p>
                     </div>
                   </div>
                 </div>

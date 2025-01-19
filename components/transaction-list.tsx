@@ -27,11 +27,11 @@ export function TransactionList({ transactions }: TransactionListProps) {
     <div className="space-y-6">
       {transactions.map((transaction) => (
         <div key={transaction.id} className="flex items-center justify-between">
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-4 py-4">
             <Image
               src={transaction.user.image}
               alt={transaction.user.name}
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover rounded-full"
               width={48}
               height={48}
             />

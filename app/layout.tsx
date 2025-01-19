@@ -1,11 +1,15 @@
-import { Inter } from "next/font/google";
+import { Instrument_Sans } from "next/font/google";
 import { Sidebar } from "@/components/sidebar";
 import { Header } from "@/components/header";
 import { MobileMenuProvider } from "@/contexts/mobile-menu";
 import "./globals.css";
 import { Providers } from "@/components/providers";
 
-const inter = Inter({ subsets: ["latin"] });
+const instrumentSans = Instrument_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
 
 export default function RootLayout({
   children,
@@ -14,7 +18,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={instrumentSans.className}>
         <MobileMenuProvider>
           <Providers>
             <div className="min-h-screen bg-[#101012]">

@@ -44,8 +44,8 @@ export function GroupsList() {
   };
 
   return (
-    <div className="mt-8">
-      <h2 className="mb-6 text-xl font-semibold text-white">Groups</h2>
+    <div className="py-12">
+      <h2 className="mb-6 text-3xl font-semibold text-white">Groups</h2>
       <div className="space-y-4">
         {groups.map((group) => {
           const debtInfo = getMyDebtInfo(group);
@@ -53,14 +53,24 @@ export function GroupsList() {
             <div key={group.id} className="relative">
               <Link
                 href={`/groups/${group.id}`}
-                className="flex items-center justify-between rounded-xl border border-white/10 bg-[#1F1F23]/50 p-4 transition-all duration-200 hover:bg-[#2a2a2e]"
+                className="flex items-center justify-between rounded-xl bg-[#101012] p-4 transition-all duration-300 hover:bg-[#1a1a1c] relative group overflow-hidden"
+                onMouseMove={(e) => {
+                  const rect = e.currentTarget.getBoundingClientRect();
+                  const x = e.clientX - rect.left;
+                  const y = e.clientY - rect.top;
+                  e.currentTarget.style.background = `radial-gradient(1000px circle at ${x}px ${y}px, rgba(255,255,255,0.05), transparent 40%)`;
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "#101012";
+                  e.currentTarget.style.transition = "background 0.3s ease";
+                }}
               >
                 <div className="flex items-center gap-3">
                   <div className="h-12 w-12 overflow-hidden rounded-lg">
                     <Image
                       src={group.image}
                       alt={group.name}
-                      className="h-full w-full object-cover"
+                      className="h-full w-full object-cover rounded-xl"
                       width={48}
                       height={48}
                     />
@@ -107,7 +117,6 @@ export function GroupsList() {
                           onClick={(e) => {
                             e.preventDefault();
                             e.stopPropagation();
-                            // Add navigation logic here
                           }}
                           className="flex w-full items-center gap-2 px-4 py-2 text-sm text-white hover:bg-white/5"
                         >

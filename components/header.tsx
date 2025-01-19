@@ -34,7 +34,7 @@ export function Header() {
 
   return (
     <div className="fixed left-0 right-0 top-0 z-10 min-[1025px]:left-[280px] min-[1025px]:right-0">
-      <div className="flex h-[80px] items-center justify-between border-b border-white/10 bg-[#101012]/80 px-4 backdrop-blur-md min-[1025px]:px-8">
+      <div className="flex h-[80px] items-center justify-between  bg-zinc-950 px-4 backdrop-blur-md min-[1025px]:px-8">
         <div className="flex items-center gap-4 w-[200px]">
           <button onClick={toggle} className="min-[1025px]:hidden">
             {isOpen ? (
