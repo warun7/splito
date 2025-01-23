@@ -23,6 +23,23 @@ export function GroupsList() {
     };
   }, []);
 
+  useEffect(() => {
+    if (editingId) {
+      const button = document.querySelector(
+        `[data-group-id="${editingId}"] button`
+      ) as HTMLElement;
+      const dropdown = document.querySelector(
+        `[data-group-id="${editingId}"] .group-menu`
+      ) as HTMLElement;
+
+      if (button && dropdown) {
+        const buttonRect = button.getBoundingClientRect();
+        dropdown.style.top = `${buttonRect.bottom + 8}px`;
+        dropdown.style.left = `${buttonRect.right - dropdown.offsetWidth}px`;
+      }
+    }
+  }, [editingId]);
+
   const getMyDebtInfo = (group: Group) => {
     if (!connectedAddress) return { amount: 0, type: "none" };
 
@@ -50,10 +67,10 @@ export function GroupsList() {
         {groups.map((group) => {
           const debtInfo = getMyDebtInfo(group);
           return (
-            <div key={group.id} className="relative">
+            <div key={group.id} className="relative z-0">
               <Link
                 href={`/groups/${group.id}`}
-                className="flex items-center justify-between rounded-xl bg-[#101012] p-4 transition-all duration-300 hover:bg-[#1a1a1c] relative group overflow-hidden"
+                className="flex items-center justify-between rounded-xl bg-[#101012] p-4 transition-all duration-300 hover:bg-[#1a1a1c] relative group"
                 onMouseMove={(e) => {
                   const rect = e.currentTarget.getBoundingClientRect();
                   const x = e.clientX - rect.left;
@@ -98,7 +115,7 @@ export function GroupsList() {
                     </p>
                   </div>
 
-                  <div className="relative">
+                  <div className="relative" data-group-id={group.id}>
                     <button
                       onClick={(e) => {
                         e.preventDefault();
@@ -111,12 +128,12 @@ export function GroupsList() {
                     </button>
 
                     {editingId === group.id && (
-                      <div className="group-menu absolute right-0 top-full mt-2 w-48 rounded-lg border border-white/10 bg-[#1F1F23] py-1 shadow-lg z-10">
+                      <div className="group-menu absolute right-0 top-[calc(100%+4px)] w-48 rounded-lg border border-white/10 bg-[#1F1F23] py-1 shadow-lg z-[100]">
                         <Link
                           href={`/groups/${group.id}/edit`}
                           onClick={(e) => {
-                            e.preventDefault();
                             e.stopPropagation();
+                            setEditingId(null);
                           }}
                           className="flex w-full items-center gap-2 px-4 py-2 text-sm text-white hover:bg-white/5"
                         >
