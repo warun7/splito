@@ -1,9 +1,8 @@
 "use client";
 
-import { Bell, Menu, Search, Settings, Wallet, X } from "lucide-react";
+import { Menu, Settings, Wallet, X } from "lucide-react";
 import { useWallet } from "@/hooks/useWallet";
 import { useMobileMenu } from "@/contexts/mobile-menu";
-import { PageTitle } from "./page-title";
 import { AddressDisplay } from "./address-display";
 
 type WalletAddress = string | { address: string } | null | undefined;
@@ -34,7 +33,7 @@ export function Header() {
 
   return (
     <div className="fixed left-0 right-0 top-0 z-10 min-[1025px]:left-[280px] min-[1025px]:right-0">
-      <div className="flex h-[80px] items-center justify-between  bg-zinc-950 px-4 backdrop-blur-md min-[1025px]:px-8">
+      <div className="flex h-[110px] items-center justify-between bg-[#101012] px-4 backdrop-blur-md min-[1025px]:px-8">
         <div className="flex items-center gap-4 w-[200px]">
           <button onClick={toggle} className="min-[1025px]:hidden">
             {isOpen ? (
@@ -43,20 +42,6 @@ export function Header() {
               <Menu className="h-6 w-6 text-white" />
             )}
           </button>
-          <h1 className="text-xl sm:text-2xl font-semibold text-white whitespace-nowrap">
-            <PageTitle />
-          </h1>
-        </div>
-
-        <div className="hidden min-[1025px]:block flex-1 max-w-[400px]">
-          <div className="flex h-12 items-center rounded-full bg-[#1F1F23]">
-            <input
-              type="text"
-              placeholder="Search keywords"
-              className="h-full w-full bg-transparent px-6 text-base text-white placeholder-white/70 outline-none"
-            />
-            <Search className="mr-6 h-5 w-5 text-white/70" />
-          </div>
         </div>
 
         <div className="flex items-center gap-2 lg:gap-4">
@@ -84,10 +69,6 @@ export function Header() {
                 "Connect Wallet"
               )}
             </span>
-          </button>
-
-          <button className="hidden sm:flex h-12 w-12 items-center justify-center rounded-full bg-[#1F1F23] transition-colors hover:bg-[#2a2a2e]">
-            <Bell className="h-5 w-5 text-white" strokeWidth={1.5} />
           </button>
 
           <button className="hidden sm:flex h-12 w-12 items-center justify-center rounded-full bg-[#1F1F23] transition-colors hover:bg-[#2a2a2e]">

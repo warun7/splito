@@ -4,11 +4,14 @@ import { useGroups, type Group, type Split, type Debt } from "@/stores/groups";
 import { useRouter } from "next/navigation";
 import { useState, useEffect } from "react";
 import { useWallet } from "@/hooks/useWallet";
+import { PageTitle } from "@/components/page-title";
+import Image from "next/image";
 
 export default function CreateGroupPage() {
   const router = useRouter();
   const { addGroup, connectedAddress } = useGroups();
   const { isConnected, address, connectWallet } = useWallet();
+  const [imagePreview, setImagePreview] = useState<string | null>(null);
 
   useEffect(() => {
     // Check if wallet is connected on mount
@@ -25,6 +28,7 @@ export default function CreateGroupPage() {
     paidBy: "",
     splitType: "equal",
     currency: "USD",
+    image: null as File | null,
   });
 
   const [splits, setSplits] = useState<Split[]>([]);
@@ -121,7 +125,19 @@ export default function CreateGroupPage() {
     return Math.abs(totalSplit - Number(formData.amount)) < 0.01;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setFormData((prev) => ({ ...prev, image: file }));
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (!isConnected || !address) {
@@ -134,12 +150,19 @@ export default function CreateGroupPage() {
       return;
     }
 
+    let imageUrl = "/placeholder.jpg";
+    if (formData.image) {
+      // In a real app, you'd upload to a storage service
+      // For now, we'll use the data URL
+      imageUrl = URL.createObjectURL(formData.image);
+    }
+
     const debts = calculateDebts(splits, formData.paidBy);
 
     const newGroup: Group = {
       id: Date.now().toString(),
       name: formData.name,
-      image: "/placeholder.jpg",
+      image: imageUrl,
       creator: "You",
       creatorAddress: address,
       date: new Date().toLocaleDateString(),
@@ -179,10 +202,11 @@ export default function CreateGroupPage() {
   }, [formData.members, formData.splitType, address]);
 
   return (
-    <div className="w-full max-w-8xl">
-      <div className="mb-8">
+    <div className="w-full space-y-8">
+      <PageTitle />
+      <div>
         <h1 className="text-2xl lg:text-3xl font-semibold text-white">
-          Create New Group
+          New Group
         </h1>
         <p className="mt-2 text-white/70">Create a new expense sharing group</p>
       </div>
@@ -190,8 +214,43 @@ export default function CreateGroupPage() {
       <div className="rounded-xl border border-white/10 bg-[#1F1F23]/50 p-8">
         <form onSubmit={handleSubmit} className="space-y-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {/* Left Column */}
             <div className="space-y-6">
+              <div className="form-group">
+                <label className="block text-sm font-medium text-white mb-2">
+                  Group Image
+                </label>
+                <div className="flex items-center gap-4">
+                  <div className="h-24 w-24 overflow-hidden rounded-2xl bg-zinc-900">
+                    {imagePreview ? (
+                      <Image
+                        src={imagePreview}
+                        alt="Preview"
+                        width={96}
+                        height={96}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full items-center justify-center text-white/50">
+                        No image
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleImageChange}
+                    className="hidden"
+                    id="group-image"
+                  />
+                  <label
+                    htmlFor="group-image"
+                    className="cursor-pointer rounded-lg border border-white/10 px-4 py-2 text-sm text-white hover:bg-white/5"
+                  >
+                    Choose Image
+                  </label>
+                </div>
+              </div>
+
               <div className="form-group">
                 <label htmlFor="name" className="form-label">
                   Group Name
@@ -249,7 +308,6 @@ export default function CreateGroupPage() {
               </div>
             </div>
 
-            {/* Right Column */}
             <div className="space-y-6">
               <div className="grid grid-cols-2 gap-4">
                 <div className="form-group">
@@ -328,7 +386,10 @@ export default function CreateGroupPage() {
                   id="paidBy"
                   value={formData.paidBy}
                   onChange={(e) =>
-                    setFormData((prev) => ({ ...prev, paidBy: e.target.value }))
+                    setFormData((prev) => ({
+                      ...prev,
+                      paidBy: e.target.value,
+                    }))
                   }
                   className="form-input"
                 >

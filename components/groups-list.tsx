@@ -70,7 +70,7 @@ export function GroupsList() {
             <div key={group.id} className="relative z-0">
               <Link
                 href={`/groups/${group.id}`}
-                className="flex items-center justify-between rounded-xl bg-[#101012] p-4 transition-all duration-300 hover:bg-[#1a1a1c] relative group"
+                className="flex items-center justify-between rounded-xl bg-zinc-950 p-4 transition-all duration-300 hover:bg-[#1a1a1c] relative group"
                 onMouseMove={(e) => {
                   const rect = e.currentTarget.getBoundingClientRect();
                   const x = e.clientX - rect.left;
@@ -78,7 +78,7 @@ export function GroupsList() {
                   e.currentTarget.style.background = `radial-gradient(1000px circle at ${x}px ${y}px, rgba(255,255,255,0.05), transparent 40%)`;
                 }}
                 onMouseLeave={(e) => {
-                  e.currentTarget.style.background = "#101012";
+                  e.currentTarget.style.background = "#09090b";
                   e.currentTarget.style.transition = "background 0.3s ease";
                 }}
               >

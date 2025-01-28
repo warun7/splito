@@ -10,7 +10,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
   }, []);
 
   if (!isHydrated) {
-    return null; // or a loading spinner
+    return null;
   }
 
   return <>{children}</>;

@@ -3,7 +3,9 @@
 import { GroupInfoHeader } from "@/components/group-info-header";
 import { useGroups } from "@/stores/groups";
 import { useWallet } from "@/hooks/useWallet";
+import { PageTitle } from "@/components/page-title";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function GroupDetailsPage({
   params,
@@ -12,30 +14,68 @@ export default function GroupDetailsPage({
 }) {
   const { groups } = useGroups();
   const { address } = useWallet();
+  const router = useRouter();
   const group = groups.find((g) => g.id === params.id);
 
   if (!group) return null;
 
   return (
     <div className="w-full space-y-8">
-      <GroupInfoHeader groupId={params.id} />
+      <PageTitle />
+
+      <div className="flex items-start gap-6">
+        <div className="h-32 w-32 overflow-hidden rounded-full">
+          <Image
+            src={group.image}
+            alt={group.name}
+            width={128}
+            height={128}
+            className="h-full w-full object-cover"
+          />
+        </div>
+
+        <div className="flex-1 pt-2">
+          <h1 className="text-4xl font-semibold text-white mb-3">
+            {group.name}
+          </h1>
+          <div className="inline-flex items-center rounded-xl bg-[#1F1F23]/50 px-3 py-1">
+            <span className="text-sm text-white/70">
+              Total Group Balance:{" "}
+              <span className="text-[#67B76C]">${group.amount}</span>
+            </span>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 -mt-2">
+          <div className="animate-border-light w-[173px]">
+            <button
+              onClick={() => router.push(`/groups/${params.id}/edit`)}
+              className="w-full h-[46px] rounded-[15px] bg-[#000000] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors"
+            >
+              Add Expense
+            </button>
+          </div>
+          <div className="animate-border-light w-[173px]">
+            <button className="w-full h-[46px] rounded-[15px] bg-[#454864] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors">
+              Settle Debts
+            </button>
+          </div>
+        </div>
+      </div>
 
       <div>
         <div className="flex items-center justify-between mb-6">
           <h2 className="text-xl font-semibold text-white">
             Group Members ({group.members.length})
           </h2>
-          <div className="text-sm text-white/70">
-            Total Group Balance: ${group.amount}
-          </div>
         </div>
         <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent mb-6" />
 
         <div className="grid grid-cols-1 gap-4">
           <div className="grid grid-cols-4 gap-4 px-2 py-2 text-sm text-white/70">
             <div>Member</div>
-            <div className="text-right">Owe</div>
             <div className="text-right">Owed</div>
+            <div className="text-right">Owe</div>
             <div className="text-right">Status</div>
           </div>
 
@@ -138,22 +178,28 @@ export default function GroupDetailsPage({
                       <p className="text-xl">
                         {debt.to === address ? (
                           <>
-                            <span className="text-[#67B76C]">owes you</span>{" "}
-                            <span className="text-[#67B76C]">
+                            <span className="text-[#67B76C] text-2xl font-bold">
+                              owes you
+                            </span>{" "}
+                            <span className="text-[#67B76C] text-2xl font-bold">
                               ${debt.amount}
                             </span>
                           </>
                         ) : (
                           <>
-                            <span className="text-[#FF4444]">owes</span>{" "}
-                            <span className="text-white/70">you</span>{" "}
-                            <span className="text-[#67B76C]">
+                            <span className="text-[#FF4444 text-2xl font-bold]">
+                              owes
+                            </span>{" "}
+                            <span className="text-white/70 text-2xl font-bold">
+                              you
+                            </span>{" "}
+                            <span className="text-[#67B76C] text-2xl font-bold">
                               ${debt.amount}
                             </span>
                           </>
                         )}
                       </p>
-                      <p className="text-sm text-white/50">Message status</p>
+                      <p className="text-m text-white/50">Message status</p>
                     </div>
                   </div>
                 </div>
