@@ -98,7 +98,7 @@ input[type="number"] {
 .animate-border-light > div {
   position: relative;
   z-index: 1;
-  background: #262627;
+  background: #000000;
   border-radius: 14px;
 }
 

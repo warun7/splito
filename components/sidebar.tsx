@@ -12,6 +12,7 @@ const navigation = [
   { name: "Overview", href: "/", icon: Home },
   { name: "My Groups", href: "/groups", icon: Users },
   { name: "Create Group", href: "/create", icon: Plus },
+  { name: "Friends", href: "/friends", icon: Users },
 ];
 
 export function Sidebar() {

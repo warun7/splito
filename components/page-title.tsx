@@ -9,6 +9,7 @@ export function PageTitle() {
     if (pathname === "/") return "Overview";
     if (pathname === "/groups") return "Groups";
     if (pathname === "/create") return "Create";
+    if (pathname === "/friends") return "Friends";
     if (pathname.startsWith("/groups/") && pathname.endsWith("/edit"))
       return "Edit";
     return "Group Overview";
