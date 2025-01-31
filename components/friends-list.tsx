@@ -83,7 +83,7 @@ export function FriendsList() {
               />
             </div>
             <div>
-              <p className="text-lg lg:text-2xl font-semibold text-white">
+              <p className="text-lg lg:text-xl font-semibold text-white">
                 {friend.name}
               </p>
               <p className="text-xs lg:text-sm text-white/70">{friend.email}</p>
@@ -95,14 +95,14 @@ export function FriendsList() {
           </div>
 
           <div className="text-right min-w-[80px] lg:min-w-[100px]">
-            <p className="text-lg lg:text-2xl text-white/70">
+            <p className="text-lg lg:text-lg text-white/70">
               {friend.balance.type === "owes_you" ? "owes you" : "you owe"}
             </p>
             <p
               className={
                 friend.balance.type === "owes_you"
-                  ? "text-[#DA0000] font-semibold text-lg lg:text-2xl"
-                  : "text-[#41B66B] font-semibold text-lg lg:text-2xl"
+                  ? "text-[#41B66B] font-semibold text-lg lg:text-xl"
+                  : "text-[#DA0000] font-semibold text-lg lg:text-xl"
               }
             >
               ${friend.balance.amount.toFixed(2)}

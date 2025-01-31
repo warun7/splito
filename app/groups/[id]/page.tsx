@@ -178,22 +178,22 @@ export default function GroupDetailsPage({
                       <p className="text-xl">
                         {debt.to === address ? (
                           <>
-                            <span className="text-[#67B76C] text-2xl font-bold">
+                            <span className="text-[#67B76C] text-xl font-semibold">
                               owes you
                             </span>{" "}
-                            <span className="text-[#67B76C] text-2xl font-bold">
+                            <span className="text-[#67B76C] text-xl font-semibold">
                               ${debt.amount}
                             </span>
                           </>
                         ) : (
                           <>
-                            <span className="text-[#FF4444 text-2xl font-bold]">
+                            <span className="text-[#FF4444 text-xl font-semibold]">
                               owes
                             </span>{" "}
-                            <span className="text-white/70 text-2xl font-bold">
+                            <span className="text-white/70 text-xl font-semibold">
                               you
                             </span>{" "}
-                            <span className="text-[#67B76C] text-2xl font-bold">
+                            <span className="text-[#67B76C] text-xl font-semibold">
                               ${debt.amount}
                             </span>
                           </>
