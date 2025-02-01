@@ -38,9 +38,7 @@ const requests: Request[] = [
 export function TransactionRequests() {
   return (
     <div className="rounded-xl bg-zinc-950 p-4 lg:p-6">
-      <h2 className="mb-6 text-xl font-semibold text-white">
-        Transaction Requests
-      </h2>
+      <h2 className="text-h2 text-white mb-6">Transaction Requests</h2>
       <div className="space-y-4">
         {requests.map((request) => (
           <div

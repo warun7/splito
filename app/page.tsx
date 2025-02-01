@@ -28,7 +28,7 @@ export default function Page() {
         <div className="lg:col-span-2 space-y-8">
           <div>
             <div className="mb-6 space-y-4">
-              <h2 className="text-xl lg:text-4xl font-semibold text-white mt-12 flex items-center justify-between">
+              <h2 className="text-display text-white mt-12 flex items-center justify-between">
                 <div>
                   {netBalance < 0 ? (
                     <>
@@ -49,7 +49,7 @@ export default function Page() {
                   )}
                 </div>
                 <div className="animate-border-light w-[155px]">
-                  <button className="w-full h-[40px] rounded-[15px] bg-[#000000] bg-opacity-80 text-xs lg:text-sm font-medium text-white hover:bg-[#383838] transition-colors">
+                  <button className="w-full h-[40px] rounded-[15px] bg-[#000000] bg-opacity-80 text-body-sm font-medium text-white hover:bg-[#383838] transition-colors">
                     Settle Debts
                   </button>
                 </div>

@@ -35,11 +35,9 @@ export default function GroupDetailsPage({
         </div>
 
         <div className="flex-1 pt-2">
-          <h1 className="text-4xl font-semibold text-white mb-3">
-            {group.name}
-          </h1>
+          <h1 className="text-h1 text-white mb-3">{group.name}</h1>
           <div className="inline-flex items-center rounded-xl bg-[#1F1F23]/50 px-3 py-1">
-            <span className="text-sm text-white/70">
+            <span className="text-body text-white/70">
               Total Group Balance:{" "}
               <span className="text-[#67B76C]">${group.amount}</span>
             </span>
@@ -50,7 +48,7 @@ export default function GroupDetailsPage({
           <div className="animate-border-light w-[173px]">
             <button
               onClick={() => router.push(`/groups/${params.id}/edit`)}
-              className="w-full h-[46px] rounded-[15px] bg-[#000000] bg-opacity-80 text-sm font-medium text-white hover:bg-[#383838] transition-colors"
+              className="w-full h-[46px] rounded-[15px] bg-[#000000] bg-opacity-80 text-body font-medium text-white hover:bg-[#383838] transition-colors"
             >
               Add Expense
             </button>
@@ -65,14 +63,14 @@ export default function GroupDetailsPage({
 
       <div>
         <div className="flex items-center justify-between mb-6">
-          <h2 className="text-xl font-semibold text-white">
+          <h2 className="text-h2 text-white">
             Group Members ({group.members.length})
           </h2>
         </div>
         <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent mb-6" />
 
         <div className="grid grid-cols-1 gap-4">
-          <div className="grid grid-cols-4 gap-4 px-2 py-2 text-sm text-white/70">
+          <div className="grid grid-cols-4 gap-4 px-2 py-2 text-body-sm text-white/70">
             <div>Member</div>
             <div className="text-right">Owed</div>
             <div className="text-right">Owe</div>
@@ -109,7 +107,7 @@ export default function GroupDetailsPage({
                       className="h-full w-full"
                     />
                   </div>
-                  <span className="font-medium text-white text-sm sm:text-base">
+                  <span className="text-body font-medium text-white">
                     {member.slice(0, 5)}...{member.slice(-2)}
                   </span>
                 </div>
@@ -122,8 +120,8 @@ export default function GroupDetailsPage({
                 <div className="flex justify-end">
                   {owed === 0 && owe === 0 ? (
                     <span className="inline-flex items-center gap-1 px-2 py-1 rounded-md bg-[#1F1F23]/50">
-                      <span className="text-sm text-[#67B76C]">Paid</span>
-                      <span className="text-xs text-white/50">via</span>
+                      <span className="text-body-sm text-[#67B76C]">Paid</span>
+                      <span className="text-caption text-white/50">via</span>
                       <svg
                         className="h-4 w-4"
                         viewBox="0 0 24 24"
@@ -137,7 +135,7 @@ export default function GroupDetailsPage({
                       </svg>
                     </span>
                   ) : (
-                    <span className="text-sm text-white/70">Pending</span>
+                    <span className="text-body-sm text-white/70">Pending</span>
                   )}
                 </div>
               </div>
@@ -147,9 +145,7 @@ export default function GroupDetailsPage({
       </div>
 
       <div>
-        <h2 className="text-xl font-semibold text-white mb-6">
-          Group Activities
-        </h2>
+        <h2 className="text-h2 text-white mb-6">Group Activities</h2>
         <div className="h-px bg-gradient-to-r from-transparent via-white/15 to-transparent mb-6" />
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -166,40 +162,44 @@ export default function GroupDetailsPage({
                   />
                   <div className="flex-1">
                     <div className="flex items-center justify-between mb-3">
-                      <h3 className="text-xl text-white font-medium">
+                      <h3 className="text-h3 text-white font-medium">
                         {debt.from.slice(0, 5)}...{debt.from.slice(-2)}
                       </h3>
                       <div className="flex items-center gap-1 px-3 py-1 rounded-full bg-[#07091E]/50">
                         <div className="h-1.5 w-1.5 rounded-full bg-[#FFC107]" />
-                        <span className="text-sm text-[#FFC107]">Pending</span>
+                        <span className="text-body-sm text-[#FFC107]">
+                          Pending
+                        </span>
                       </div>
                     </div>
                     <div className="space-y-2">
-                      <p className="text-xl">
+                      <p className="text-h3">
                         {debt.to === address ? (
                           <>
-                            <span className="text-[#67B76C] text-xl font-semibold">
+                            <span className="text-[#67B76C] font-semibold">
                               owes you
                             </span>{" "}
-                            <span className="text-[#67B76C] text-xl font-semibold">
+                            <span className="text-[#67B76C] font-semibold">
                               ${debt.amount}
                             </span>
                           </>
                         ) : (
                           <>
-                            <span className="text-[#FF4444 text-xl font-semibold]">
+                            <span className="text-[#FF4444] font-semibold">
                               owes
                             </span>{" "}
-                            <span className="text-white/70 text-xl font-semibold">
+                            <span className="text-white/70 font-semibold">
                               you
                             </span>{" "}
-                            <span className="text-[#67B76C] text-xl font-semibold">
+                            <span className="text-[#67B76C] font-semibold">
                               ${debt.amount}
                             </span>
                           </>
                         )}
                       </p>
-                      <p className="text-m text-white/50">Message status</p>
+                      <p className="text-body-sm text-white/50">
+                        Message status
+                      </p>
                     </div>
                   </div>
                 </div>

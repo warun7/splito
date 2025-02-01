@@ -62,7 +62,7 @@ export function GroupsList() {
 
   return (
     <div className="py-12">
-      <h2 className="mb-6 text-3xl font-semibold text-white">Groups</h2>
+      <h2 className="text-h2 text-white mb-6">Groups</h2>
       <div className="space-y-4">
         {groups.map((group) => {
           const debtInfo = getMyDebtInfo(group);
@@ -93,23 +93,25 @@ export function GroupsList() {
                     />
                   </div>
                   <div>
-                    <p className="font-medium text-white">{group.name}</p>
-                    <p className="text-sm text-white/70">
+                    <p className="text-body font-medium text-white">
+                      {group.name}
+                    </p>
+                    <p className="text-body-sm text-white/70">
                       Created by {group.creator} • {group.date}
                     </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <p className="text-sm text-white/70">
+                    <p className="text-body-sm text-white/70">
                       {debtInfo.type === "owed" ? "you are owed" : "you owe"}
                     </p>
                     <p
-                      className={
+                      className={`text-body ${
                         debtInfo.type === "owed"
                           ? "text-[#67B76C]"
                           : "text-[#FF4444]"
-                      }
+                      }`}
                     >
                       ${debtInfo.amount.toFixed(2)}
                     </p>
@@ -135,7 +137,7 @@ export function GroupsList() {
                             e.stopPropagation();
                             setEditingId(null);
                           }}
-                          className="flex w-full items-center gap-2 px-4 py-2 text-sm text-white hover:bg-white/5"
+                          className="flex w-full items-center gap-2 px-4 py-2 text-body-sm text-white hover:bg-white/5"
                         >
                           <Pencil className="h-4 w-4" />
                           Edit Group
@@ -146,7 +148,7 @@ export function GroupsList() {
                             e.stopPropagation();
                             deleteGroup(group.id);
                           }}
-                          className="flex w-full items-center gap-2 px-4 py-2 text-sm text-[#FF4444] hover:bg-white/5"
+                          className="flex w-full items-center gap-2 px-4 py-2 text-body-sm text-[#FF4444] hover:bg-white/5"
                         >
                           <Trash2 className="h-4 w-4" />
                           Delete Group

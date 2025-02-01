@@ -201,6 +201,10 @@ export default function CreateGroupPage() {
     setPercentages(initialPercentages);
   }, [formData.members, formData.splitType, address]);
 
+  const errors = {
+    name: "",
+  };
+
   return (
     <div className="w-full space-y-8">
       <PageTitle />
@@ -252,21 +256,30 @@ export default function CreateGroupPage() {
               </div>
 
               <div className="form-group">
-                <label htmlFor="name" className="form-label">
+                <label htmlFor="name" className="text-body text-white/90">
                   Group Name
                 </label>
                 <input
                   type="text"
                   id="name"
+                  name="name"
+                  className="form-input text-body"
+                  placeholder="Enter group name"
                   value={formData.name}
                   onChange={(e) =>
                     setFormData((prev) => ({ ...prev, name: e.target.value }))
                   }
-                  className="form-input"
-                  placeholder="Enter group name"
-                  required
                 />
               </div>
+
+              {errors.name && (
+                <p className="text-body-sm text-[#FF4444] mt-1">
+                  {errors.name}
+                </p>
+              )}
+              <p className="text-body-sm text-white/50 mt-1">
+                This will help identify your group
+              </p>
 
               <div className="form-group">
                 <label htmlFor="description" className="form-label">
@@ -445,12 +458,10 @@ export default function CreateGroupPage() {
 
           {formData.splitType === "percentage" && splits.length > 0 && (
             <div className="mt-6 space-y-4">
-              <h3 className="text-lg font-medium text-white">
-                Percentage Split
-              </h3>
+              <h3 className="text-h3 text-white">Percentage Split</h3>
               {splits.map((split) => (
                 <div key={split.address} className="flex items-center gap-4">
-                  <span className="text-sm text-white/70">
+                  <span className="text-body text-white/70">
                     {split.address === address ? "You" : split.address}
                   </span>
                   <input

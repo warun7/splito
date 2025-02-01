@@ -180,10 +180,8 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
     <div className="w-full max-w-7xl mx-auto">
       <PageTitle />
       <div className="mb-8">
-        <h1 className="text-2xl lg:text-3xl font-semibold text-white">
-          Edit Group
-        </h1>
-        <p className="mt-2 text-white/70">
+        <h1 className="text-h1 text-white">Edit Group</h1>
+        <p className="text-body text-white/70 mt-2">
           Update your expense sharing group details
         </p>
       </div>
@@ -473,7 +471,7 @@ export default function EditGroupPage({ params }: { params: { id: string } }) {
               splits.reduce((sum, split) => sum + split.amount, 0) -
                 Number(formData.amount)
             ) > 0.01 && (
-              <span className="text-[#FF4444] ml-2">
+              <span className="text-body-sm text-[#FF4444] ml-2">
                 (Must equal total amount: {formData.amount} {formData.currency})
               </span>
             )}

@@ -105,3 +105,37 @@ input[type="number"] {
 .animate-border-light > button {
   display: block;
 }
+
+@layer components {
+  .text-display {
+    @apply text-4xl font-semibold tracking-tight lg:text-4xl;
+  }
+
+  .text-h1 {
+    @apply text-2xl font-semibold tracking-tight lg:text-3xl;
+  }
+
+  .text-h2 {
+    @apply text-xl font-semibold tracking-tight lg:text-2xl;
+  }
+
+  .text-h3 {
+    @apply text-lg font-medium tracking-tight lg:text-xl;
+  }
+
+  .text-body-lg {
+    @apply text-base lg:text-lg;
+  }
+
+  .text-body {
+    @apply text-sm lg:text-base;
+  }
+
+  .text-body-sm {
+    @apply text-xs lg:text-sm;
+  }
+
+  .text-caption {
+    @apply text-xs text-white/70;
+  }
+}

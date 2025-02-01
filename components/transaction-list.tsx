@@ -19,7 +19,9 @@ type TransactionListProps = {
 export function TransactionList({ transactions }: TransactionListProps) {
   if (transactions.length === 0) {
     return (
-      <div className="text-center text-white/70 py-8">No transactions yet</div>
+      <div className="text-body text-white/70 py-8 text-center">
+        No transactions yet
+      </div>
     );
   }
 
@@ -36,16 +38,18 @@ export function TransactionList({ transactions }: TransactionListProps) {
               height={48}
             />
             <div>
-              <p className="font-medium text-white">{transaction.user.name}</p>
-              <p className="text-sm text-white/70">
+              <p className="text-body font-medium text-white">
+                {transaction.user.name}
+              </p>
+              <p className="text-body-sm text-white/70">
                 {transaction.type === "owe" ? "you owe" : "owes you"}
               </p>
             </div>
           </div>
           <p
-            className={
+            className={`text-body ${
               transaction.type === "owe" ? "text-[#FF4444]" : "text-[#67B76C]"
-            }
+            }`}
           >
             ${transaction.amount.toFixed(2)}
           </p>
