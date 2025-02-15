@@ -1,14 +1,26 @@
 "use client";
 
 import { GroupsList } from "@/components/groups-list";
+import { CreateGroupForm } from "@/components/create-group-form";
+import { PageTitle } from "@/components/page-title";
+import { motion } from "framer-motion";
+import { fadeIn } from "@/utils/animations";
 
 export default function GroupsPage() {
   return (
-    <div className="max-w-5xl">
-      <div className="mb-8">
-        <h1 className="text-h1 text-white">My Groups</h1>
+    <motion.div
+      variants={fadeIn}
+      initial="initial"
+      animate="animate"
+      className="w-full"
+    >
+      <PageTitle />
+      <div className="grid grid-cols-1 lg:grid-cols-[1fr_400px] gap-8">
+        <GroupsList />
+        <div className="block">
+          <CreateGroupForm />
+        </div>
       </div>
-      <GroupsList />
-    </div>
+    </motion.div>
   );
 }
