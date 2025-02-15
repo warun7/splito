@@ -6,7 +6,6 @@ import { usePathname } from "next/navigation";
 import { Home, Users, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useMobileMenu } from "@/contexts/mobile-menu";
-import { UserProfile } from "@/components/user-profile";
 
 const navigation = [
   { name: "Overview", href: "/", icon: Home },
@@ -68,12 +67,6 @@ export function Sidebar() {
               );
             })}
           </nav>
-
-          <div className="absolute bottom-8 left-8 right-8 z-10">
-            <div className="rounded-xl border border-white/10 bg-[#000]/50 p-4 backdrop-blur-sm">
-              <UserProfile />
-            </div>
-          </div>
         </div>
       </div>
     </>

@@ -150,7 +150,7 @@ export default function CreateGroupPage() {
       return;
     }
 
-    let imageUrl = "/placeholder.jpg";
+    let imageUrl = "/group_icon_placeholder.png";
     if (formData.image) {
       // In a real app, you'd upload to a storage service
       // For now, we'll use the data URL

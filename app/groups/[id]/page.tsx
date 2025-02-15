@@ -26,7 +26,7 @@ export default function GroupDetailsPage({
       <div className="flex items-start gap-6">
         <div className="h-32 w-32 overflow-hidden rounded-full">
           <Image
-            src={group.image}
+            src={group.image || "/group_icon_placeholder.png"}
             alt={group.name}
             width={128}
             height={128}

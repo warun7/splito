@@ -1,8 +1,12 @@
+"use client";
+
 import { useGroups, type Group } from "@/stores/groups";
 import { MoreVertical, Pencil, Trash2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { motion } from "framer-motion";
+import { staggerContainer, slideUp } from "@/utils/animations";
 
 export function GroupsList() {
   const { groups, deleteGroup, connectedAddress } = useGroups();
@@ -61,13 +65,24 @@ export function GroupsList() {
   };
 
   return (
-    <div className="py-12">
-      <h2 className="text-h2 text-white mb-6">Groups</h2>
+    <motion.div
+      className="py-12"
+      variants={staggerContainer}
+      initial="initial"
+      animate="animate"
+    >
+      <motion.h2 variants={slideUp} className="text-h2 text-white mb-6">
+        Groups
+      </motion.h2>
       <div className="space-y-4">
-        {groups.map((group) => {
+        {groups.map((group, index) => {
           const debtInfo = getMyDebtInfo(group);
           return (
-            <div key={group.id} className="relative z-0">
+            <motion.div
+              key={group.id}
+              variants={slideUp}
+              className="relative z-0"
+            >
               <Link
                 href={`/groups/${group.id}`}
                 className="flex items-center justify-between rounded-xl bg-zinc-950 p-4 transition-all duration-300 hover:bg-[#1a1a1c] relative group"
@@ -83,11 +98,11 @@ export function GroupsList() {
                 }}
               >
                 <div className="flex items-center gap-3">
-                  <div className="h-12 w-12 overflow-hidden rounded-lg">
+                  <div className="h-12 w-12 overflow-hidden rounded-full">
                     <Image
-                      src={group.image}
+                      src={group.image || "/group_icon_placeholder.png"}
                       alt={group.name}
-                      className="h-full w-full object-cover rounded-xl"
+                      className="h-full w-full object-cover"
                       width={48}
                       height={48}
                     />
@@ -158,10 +173,10 @@ export function GroupsList() {
                   </div>
                 </div>
               </Link>
-            </div>
+            </motion.div>
           );
         })}
       </div>
-    </div>
+    </motion.div>
   );
 }

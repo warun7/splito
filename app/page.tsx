@@ -1,17 +1,20 @@
 "use client";
 
+import { useState } from "react";
 import { TransactionList } from "@/components/transaction-list";
 import { TransactionRequests } from "@/components/transaction-requests";
 import { GroupsList } from "@/components/groups-list";
 import { useWallet } from "@/hooks/useWallet";
 import { useGroups } from "@/stores/groups";
 import { PageTitle } from "@/components/page-title";
+import { SettleDebtsModal } from "@/components/settle-debts-modal";
 import {
   calculateBalances,
   getTransactionsFromGroups,
 } from "@/utils/calculations";
 
 export default function Page() {
+  const [isSettleModalOpen, setIsSettleModalOpen] = useState(false);
   const { isConnected, address } = useWallet();
   const { groups } = useGroups();
 
@@ -49,7 +52,10 @@ export default function Page() {
                   )}
                 </div>
                 <div className="animate-border-light w-[155px]">
-                  <button className="w-full h-[40px] rounded-[15px] bg-[#000000] bg-opacity-80 text-body-sm font-medium text-white hover:bg-[#383838] transition-colors">
+                  <button
+                    onClick={() => setIsSettleModalOpen(true)}
+                    className="w-full h-[40px] rounded-[15px] bg-[#000000] bg-opacity-80 text-body-sm font-medium text-white hover:bg-[#383838] transition-colors"
+                  >
                     Settle Debts
                   </button>
                 </div>
@@ -63,6 +69,11 @@ export default function Page() {
           <TransactionRequests />
         </div>
       </div>
+
+      <SettleDebtsModal
+        isOpen={isSettleModalOpen}
+        onClose={() => setIsSettleModalOpen(false)}
+      />
     </div>
   );
 }
