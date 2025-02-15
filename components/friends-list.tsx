@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useState } from "react";
+import { motion } from "framer-motion";
+import { staggerContainer, slideUp } from "@/utils/animations";
 
 type Friend = {
   id: string;
@@ -66,10 +68,16 @@ export function FriendsList() {
   const [friends] = useState<Friend[]>(mockFriends);
 
   return (
-    <div className="space-y-3 lg:space-y-4">
+    <motion.div
+      variants={staggerContainer}
+      initial="initial"
+      animate="animate"
+      className="space-y-3 lg:space-y-4"
+    >
       {friends.map((friend) => (
-        <div
+        <motion.div
           key={friend.id}
+          variants={slideUp}
           className="grid grid-cols-[auto_1fr_auto] items-center gap-3 lg:gap-8 rounded-xl bg-zinc-950 p-3 lg:p-4 pointer-events-none"
         >
           <div className="flex items-center gap-2 lg:gap-3">
@@ -94,22 +102,22 @@ export function FriendsList() {
             {friend.address}
           </div>
 
-          <div className="text-right min-w-[80px] lg:min-w-[100px]">
-            <p className="text-lg lg:text-lg text-white/70">
-              {friend.balance.type === "owes_you" ? "owes you" : "you owe"}
-            </p>
-            <p
+          <div className="text-right min-w-[80px] lg:min-w-[100px] flex flex-col">
+            <span className="text-lg text-white/70">
+              {friend.balance.type === "owes_you" ? "you are owed" : "you owe"}
+            </span>
+            <span
               className={
-                friend.balance.type === "owes_you"
-                  ? "text-[#41B66B] font-semibold text-lg lg:text-xl"
-                  : "text-[#DA0000] font-semibold text-lg lg:text-xl"
+                (friend.balance.type === "owes_you"
+                  ? "text-[#67B76C]"
+                  : "text-[#FF4444]")
               }
             >
               ${friend.balance.amount.toFixed(2)}
-            </p>
+            </span>
           </div>
-        </div>
+        </motion.div>
       ))}
-    </div>
+    </motion.div>
   );
 }

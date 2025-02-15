@@ -118,7 +118,7 @@ export function GroupsList() {
                 </div>
                 <div className="flex items-center gap-4">
                   <div className="text-right">
-                    <p className="text-body-sm text-white/70">
+                    <p className="text-lg text-white/70">
                       {debtInfo.type === "owed" ? "you are owed" : "you owe"}
                     </p>
                     <p
