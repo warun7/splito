@@ -18,8 +18,8 @@ export default function FriendsPage() {
       animate="animate"
       className="w-full space-y-4 lg:space-y-8 -px-2 lg:px-0"
     >
-      <PageTitle />
-      <div className="flex items-center justify-end mb-4 lg:mb-6">
+      <div className="flex items-center justify-between">
+        <PageTitle />
         <motion.button
           whileHover={{ scale: 1.02 }}
           whileTap={{ scale: 0.98 }}
