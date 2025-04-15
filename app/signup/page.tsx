@@ -13,7 +13,8 @@ import { ApiError } from "@/types/api-error";
 export default function SignupPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState<"email" | "google" | null>(null);
+  const [isLoadingEmail, setIsLoadingEmail] = useState(false);
+  const [isLoadingGoogle, setIsLoadingGoogle] = useState(false);
   const [formData, setFormData] = useState({
     email: "",
     phoneNumber: "",
@@ -23,13 +24,13 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setIsLoadingEmail(true);
 
     if (!formData.agreeToTerms) {
       toast.error("Please agree to the Privacy & Policy terms");
+      setIsLoadingEmail(false);
       return;
     }
-
-    setIsLoading("email");
 
     try {
       const { data, error } = await authClient.signUp.email({
@@ -60,12 +61,12 @@ export default function SignupPage() {
         toast.error("An unexpected error occurred. Please try again.");
       }
     } finally {
-      setIsLoading(null);
+      setIsLoadingEmail(false);
     }
   };
 
   const handleGoogleSignup = async () => {
-    setIsLoading("google");
+    setIsLoadingGoogle(true);
     try {
       await authClient.signIn.social({
         provider: "google",
@@ -74,7 +75,7 @@ export default function SignupPage() {
       });
     } catch (error) {
       toast.error("Failed to sign up with Google. Please try again.");
-      setIsLoading(null);
+      setIsLoadingGoogle(false);
     }
   };
 
@@ -124,7 +125,7 @@ export default function SignupPage() {
                       setFormData({ ...formData, email: e.target.value })
                     }
                     required
-                    disabled={isLoading !== null}
+                    disabled={isLoadingEmail || isLoadingGoogle}
                   />
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/50" />
                 </div>
@@ -149,7 +150,7 @@ export default function SignupPage() {
                     }}
                     maxLength={10}
                     required
-                    disabled={isLoading !== null}
+                    disabled={isLoadingEmail || isLoadingGoogle}
                   />
                   <div className="absolute left-4 top-0 h-full flex items-center text-white/70">
                     +91
@@ -172,14 +173,14 @@ export default function SignupPage() {
                       setFormData({ ...formData, password: e.target.value })
                     }
                     required
-                    disabled={isLoading !== null}
+                    disabled={isLoadingEmail || isLoadingGoogle}
                   />
                   <Lock className="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-white/50" />
                   <button
                     type="button"
                     className="absolute right-4 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/70 transition-colors"
                     onClick={() => setShowPassword(!showPassword)}
-                    disabled={isLoading !== null}
+                    disabled={isLoadingEmail || isLoadingGoogle}
                   >
                     {showPassword ? (
                       <EyeOff className="h-5 w-5" />
@@ -210,7 +211,7 @@ export default function SignupPage() {
                     setFormData({ ...formData, agreeToTerms: e.target.checked })
                   }
                   required
-                  disabled={isLoading !== null}
+                  disabled={isLoadingEmail || isLoadingGoogle}
                 />
                 <label
                   htmlFor="terms-desktop"
@@ -230,9 +231,9 @@ export default function SignupPage() {
                   bg-[#101012] border border-white/75 rounded-[19px]
                   text-[21.5px] font-semibold text-white leading-[34px] tracking-[-0.03em]
                   transition-all duration-200 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={isLoading !== null}
+                  disabled={isLoadingEmail || isLoadingGoogle}
                 >
-                  {isLoading === "email" ? (
+                  {isLoadingEmail ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
                   ) : (
                     "Sign up"
@@ -248,9 +249,9 @@ export default function SignupPage() {
                   bg-[#101012] border border-white/75 rounded-[19px]
                   text-[21.5px] font-semibold text-white leading-[34px] tracking-[-0.03em]
                   transition-all duration-200 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed"
-                  disabled={isLoading !== null}
+                  disabled={isLoadingEmail || isLoadingGoogle}
                 >
-                  {isLoading === "google" ? (
+                  {isLoadingGoogle ? (
                     <Loader2 className="h-5 w-5 animate-spin" />
                   ) : (
                     "Sign up with Google"
@@ -282,7 +283,7 @@ export default function SignupPage() {
               />
             </div>
 
-            <h1 className="text-2xl font-semibold text-white text-center">
+            <h1 className="text-mobile-xl md:text-2xl font-semibold text-white text-center">
               Create account
             </h1>
 
@@ -290,7 +291,7 @@ export default function SignupPage() {
               <div className="form-group">
                 <label
                   htmlFor="email-mobile"
-                  className="text-sm font-medium text-white/80 mb-2 block"
+                  className="text-mobile-sm font-medium text-white/80 mb-2 block"
                 >
                   Email
                 </label>
@@ -298,14 +299,14 @@ export default function SignupPage() {
                   <input
                     type="email"
                     id="email-mobile"
-                    className="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-white text-base focus:ring-0 focus:border-white/40 placeholder-white/30"
+                    className="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-mobile-base text-white focus:ring-0 focus:border-white/40 placeholder-white/30"
                     placeholder="name@gmail.com"
                     value={formData.email}
                     onChange={(e) =>
                       setFormData({ ...formData, email: e.target.value })
                     }
                     required
-                    disabled={isLoading !== null}
+                    disabled={isLoadingEmail || isLoadingGoogle}
                   />
                 </div>
               </div>
@@ -313,7 +314,7 @@ export default function SignupPage() {
               <div className="form-group">
                 <label
                   htmlFor="phoneNumber-mobile"
-                  className="text-sm font-medium text-white/80 mb-2 block"
+                  className="text-mobile-sm font-medium text-white/80 mb-2 block"
                 >
                   Phone Number
                 </label>
@@ -323,7 +324,7 @@ export default function SignupPage() {
                     inputMode="numeric"
                     pattern="[0-9]*"
                     id="phoneNumber-mobile"
-                    className="w-full bg-transparent border-0 border-b border-white/20 pl-8 py-2 text-white text-base focus:ring-0 focus:border-white/40 placeholder-white/30"
+                    className="w-full bg-transparent border-0 border-b border-white/20 pl-8 py-2 text-mobile-base text-white focus:ring-0 focus:border-white/40 placeholder-white/30"
                     placeholder="00000 00000"
                     value={formData.phoneNumber}
                     onChange={(e) => {
@@ -332,9 +333,9 @@ export default function SignupPage() {
                     }}
                     maxLength={10}
                     required
-                    disabled={isLoading !== null}
+                    disabled={isLoadingEmail || isLoadingGoogle}
                   />
-                  <div className="absolute left-0 top-0 h-full flex items-center text-white/70">
+                  <div className="absolute left-0 top-0 h-full flex items-center text-white/70 text-mobile-sm">
                     +91
                   </div>
                 </div>
@@ -343,7 +344,7 @@ export default function SignupPage() {
               <div className="form-group">
                 <label
                   htmlFor="password-mobile"
-                  className="text-sm font-medium text-white/80 mb-2 block"
+                  className="text-mobile-sm font-medium text-white/80 mb-2 block"
                 >
                   Password
                 </label>
@@ -351,20 +352,20 @@ export default function SignupPage() {
                   <input
                     type={showPassword ? "text" : "password"}
                     id="password-mobile"
-                    className="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-white text-base focus:ring-0 focus:border-white/40 placeholder-white/30"
+                    className="w-full bg-transparent border-0 border-b border-white/20 px-0 py-2 text-mobile-base text-white focus:ring-0 focus:border-white/40 placeholder-white/30"
                     placeholder="Your password"
                     value={formData.password}
                     onChange={(e) =>
                       setFormData({ ...formData, password: e.target.value })
                     }
                     required
-                    disabled={isLoading !== null}
+                    disabled={isLoadingEmail || isLoadingGoogle}
                   />
                   <button
                     type="button"
                     className="absolute right-0 top-1/2 -translate-y-1/2 text-white/50 hover:text-white/70 transition-colors"
                     onClick={() => setShowPassword(!showPassword)}
-                    disabled={isLoading !== null}
+                    disabled={isLoadingEmail || isLoadingGoogle}
                   >
                     {showPassword ? (
                       <EyeOff className="h-5 w-5" />
@@ -375,7 +376,7 @@ export default function SignupPage() {
                 </div>
                 <Link
                   href="/forgot-password"
-                  className="text-sm text-green-400 hover:text-green-300 mt-2 inline-block"
+                  className="text-mobile-sm text-green-400 hover:text-green-300 mt-2 inline-block"
                 >
                   Forgot Password?
                 </Link>
@@ -390,18 +391,18 @@ export default function SignupPage() {
                   setFormData({ ...formData, agreeToTerms: e.target.checked })
                 }
                 required
-                disabled={isLoading !== null}
+                disabled={isLoadingEmail || isLoadingGoogle}
               />
 
               <button
                 type="submit"
                 className="w-full h-[50px] flex items-center justify-center mt-4
                 bg-white rounded-full
-                text-lg font-semibold text-black
+                text-mobile-lg font-semibold text-black
                 transition-all duration-200 hover:bg-white/90 disabled:opacity-50 disabled:cursor-not-allowed"
-                disabled={isLoading !== null}
+                disabled={isLoadingEmail || isLoadingGoogle}
               >
-                {isLoading === "email" ? (
+                {isLoadingEmail ? (
                   <Loader2 className="h-5 w-5 animate-spin text-black" />
                 ) : (
                   "Sign up"
@@ -411,7 +412,7 @@ export default function SignupPage() {
 
             <div className="relative flex items-center justify-center">
               <div className="flex-grow border-t border-white/20"></div>
-              <span className="mx-4 text-white/50 text-sm">OR</span>
+              <span className="mx-4 text-white/50 text-mobile-sm">OR</span>
               <div className="flex-grow border-t border-white/20"></div>
             </div>
 
@@ -420,12 +421,12 @@ export default function SignupPage() {
               onClick={handleGoogleSignup}
               className="w-full h-[50px] flex items-center justify-center
               bg-transparent border border-white/20 rounded-full
-              text-lg font-medium text-white
+              text-mobile-lg font-medium text-white
               transition-all duration-200 hover:bg-white/5 disabled:opacity-50 disabled:cursor-not-allowed"
-              disabled={isLoading !== null}
+              disabled={isLoadingEmail || isLoadingGoogle}
             >
               <div className="flex items-center gap-2">
-                {isLoading === "google" ? (
+                {isLoadingGoogle ? (
                   <Loader2 className="h-5 w-5 animate-spin" />
                 ) : (
                   <>
@@ -461,7 +462,7 @@ export default function SignupPage() {
           </div>
 
           <div className="mt-auto pb-10 space-y-6">
-            <p className="text-center text-sm text-white/70">
+            <p className="text-center text-mobile-sm text-white/70">
               Already have an account?{" "}
               <Link href="/login" className="text-white hover:underline">
                 Sign in

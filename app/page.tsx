@@ -69,9 +69,9 @@ export default function Page() {
   return (
     <div className="w-full">
       {/* Header integrated into the dashboard */}
-      <div className="py-6 mb-6">
+      <div className="py-4 sm:py-6 mb-4 sm:mb-6">
         <div className="flex items-center justify-between">
-          <h2 className="text-xl text-white">
+          <h2 className="text-mobile-base sm:text-xl text-white max-w-[60%]">
             {isBalanceLoading ? (
               <div className="flex items-center gap-2">
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -80,7 +80,7 @@ export default function Page() {
             ) : youOwe.length > 0 ? (
               <div>
                 Overall, you owe{" "}
-                <span className="font-inter font-semibold text-[18px] leading-[100%] tracking-[-0.04em] text-[#FF4444]">
+                <span className="font-inter font-semibold text-[24px] leading-[100%] tracking-[-0.04em] text-[#FF4444]">
                   {youOwe.map((debt) => `$${debt.amount}`).join(", ")}
                 </span>
               </div>
@@ -88,16 +88,16 @@ export default function Page() {
               <div>You're all settled up!</div>
             )}
           </h2>
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-3 sm:gap-4">
             <button
               onClick={handleSettleAllClick}
               disabled={isSettling || isBalanceLoading}
-              className="group relative flex h-12 items-center justify-center gap-2 rounded-full border border-white/10 bg-white px-6 text-base font-medium text-black transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] disabled:opacity-70 disabled:cursor-not-allowed"
+              className="group relative flex h-10 sm:h-12 items-center justify-center gap-1 sm:gap-2 rounded-full border border-white/10 bg-white px-4 sm:px-6 text-mobile-sm sm:text-base font-medium text-black transition-all duration-300 hover:shadow-[0_0_15px_rgba(255,255,255,0.2)] disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isSettling ? (
                 <>
-                  <Loader2 className="h-5 w-5 animate-spin" />
-                  Settling...
+                  <Loader2 className="h-4 w-4 sm:h-5 sm:w-5 animate-spin" />
+                  <span className="truncate">Settling...</span>
                 </>
               ) : (
                 <>
@@ -106,13 +106,13 @@ export default function Page() {
                     alt="Settle"
                     width={22}
                     height={22}
-                    className="invert"
+                    className="invert h-4 w-4 sm:h-5 sm:w-5"
                   />
-                  <span>Settle all debts</span>
+                  <span className="truncate">Settle all debts</span>
                 </>
               )}
             </button>
-            <div className="h-14 w-14 overflow-hidden rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 p-0.5">
+            <div className="h-10 w-10 sm:h-14 sm:w-14 overflow-hidden rounded-full bg-gradient-to-br from-purple-500/20 to-blue-500/20 p-0.5">
               <div className="h-full w-full rounded-full overflow-hidden bg-[#101012]">
                 {user?.image ? (
                   <Image
@@ -145,7 +145,7 @@ export default function Page() {
       </div>
 
       {/* Monthly Stats - Three blocks side by side */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 mb-4 sm:mb-6">
         <div className="rounded-3xl bg-[#101012] p-8">
           <div className="flex items-center mb-4">
             <span className="text-white/60 text-xl">You owed this month</span>
@@ -177,30 +177,32 @@ export default function Page() {
       </div>
 
       {/* Friends and Groups - Two blocks side by side */}
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6">
         {/* Friends block (wider) */}
         <div className="lg:col-span-2 rounded-3xl bg-[#101012] p-6">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-semibold text-[#FFFFFF]/60">
-              Your Friends
-            </h2>
+            <h2 className="text-2xl font-semibold text-white">Your Friends</h2>
             <button className="flex items-center gap-2 text-white/60 hover:text-white transition-colors">
               <Image
                 src="/plus-sign-circle.svg"
                 alt="Add"
                 width={20}
                 height={20}
-                className="opacity-90"
+                className="opacity-90 h-4 w-4 sm:h-5 sm:w-5"
               />
-              <span className="font-medium">Add Friends</span>
+              <span className="font-medium text-mobile-sm sm:text-base">
+                Add Friends
+              </span>
             </button>
           </div>
 
-          <div className="space-y-8">
+          <div className="space-y-4 sm:space-y-8">
             {isFriendsLoading ? (
               <div className="flex items-center justify-center p-8">
-                <Loader2 className="h-6 w-6 animate-spin text-white/50" />
-                <span className="ml-2 text-white/70">Loading friends...</span>
+                <Loader2 className="h-5 w-5 sm:h-6 sm:w-6 animate-spin text-white/50" />
+                <span className="ml-2 text-white/70 text-mobile-sm sm:text-base">
+                  Loading friends...
+                </span>
               </div>
             ) : friends && friends.length > 0 ? (
               friends.map((friend) => {
@@ -216,10 +218,10 @@ export default function Page() {
                 return (
                   <div
                     key={friend.id}
-                    className="flex items-center justify-between"
+                    className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-0"
                   >
-                    <div className="flex items-center gap-4">
-                      <div className="h-14 w-14 overflow-hidden rounded-full">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="h-10 w-10 sm:h-14 sm:w-14 overflow-hidden rounded-full">
                         <Image
                           src={
                             friend.image ||
@@ -239,7 +241,7 @@ export default function Page() {
                         />
                       </div>
                       <div>
-                        <p className="text-xl text-white font-medium">
+                        <p className="text-mobile-base sm:text-xl text-white font-medium">
                           {friend.name}
                         </p>
                         {friendBalance ? (
@@ -247,14 +249,14 @@ export default function Page() {
                             {friendBalance.amount > 0 ? (
                               <>
                                 Owes you{" "}
-                                <span className="font-inter font-semibold text-[16px] leading-[100%] tracking-[-0.04em] text-[#53e45d]">
+                                <span className="font-inter font-semibold text-[24px] leading-[100%] tracking-[-0.04em] text-[#53e45d]">
                                   ${Math.abs(friendBalance.amount).toFixed(2)}
                                 </span>
                               </>
                             ) : friendBalance.amount < 0 ? (
                               <>
                                 You owe{" "}
-                                <span className="font-inter font-semibold text-[16px] leading-[100%] tracking-[-0.04em] text-[#FF4444]">
+                                <span className="font-inter font-semibold text-[24px] leading-[100%] tracking-[-0.04em] text-[#FF4444]">
                                   ${Math.abs(friendBalance.amount).toFixed(2)}
                                 </span>
                               </>
@@ -272,13 +274,13 @@ export default function Page() {
 
                     {/* Show appropriate button based on debt direction */}
                     {hasPositiveBalance && (
-                      <button className="w-56 group relative flex h-12 items-center justify-center gap-2 rounded-full border-2 border-white/80 bg-transparent px-5 text-base font-medium text-white transition-all duration-300 hover:border-white/40 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
+                      <button className="w-full sm:w-56 group relative flex h-10 sm:h-12 items-center justify-center gap-1 sm:gap-2 rounded-full border-2 border-white/80 bg-transparent px-4 sm:px-5 text-mobile-sm sm:text-base font-medium text-white transition-all duration-300 hover:border-white/40 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]">
                         <Image
                           src="/clock-03.svg"
                           alt="Reminder"
                           width={20}
                           height={20}
-                          className="opacity-90"
+                          className="opacity-90 h-4 w-4 sm:h-5 sm:w-5"
                         />
                         <span>Send a Reminder</span>
                       </button>
@@ -286,7 +288,7 @@ export default function Page() {
 
                     {hasNegativeBalance && (
                       <button
-                        className="w-56 group relative flex h-12 items-center justify-center gap-2 rounded-full border-2 border-white/80 bg-transparent px-5 text-base font-medium text-white transition-all duration-300 hover:border-white/40 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
+                        className="w-full sm:w-56 group relative flex h-10 sm:h-12 items-center justify-center gap-1 sm:gap-2 rounded-full border-2 border-white/80 bg-transparent px-4 sm:px-5 text-mobile-sm sm:text-base font-medium text-white transition-all duration-300 hover:border-white/40 hover:shadow-[0_0_15px_rgba(255,255,255,0.1)]"
                         onClick={() => handleSettleFriendClick(friend.id)}
                       >
                         <Image
@@ -294,7 +296,7 @@ export default function Page() {
                           alt="Settle"
                           width={20}
                           height={20}
-                          className="opacity-90"
+                          className="opacity-90 h-4 w-4 sm:h-5 sm:w-5"
                         />
                         <span>Settle Debts</span>
                       </button>
@@ -303,7 +305,7 @@ export default function Page() {
                 );
               })
             ) : (
-              <div className="text-white/70 text-center py-8">
+              <div className="text-white/70 text-center py-6 sm:py-8 text-mobile-sm sm:text-base">
                 No friends added yet. Add some friends to get started!
               </div>
             )}
@@ -311,30 +313,34 @@ export default function Page() {
         </div>
 
         {/* Groups block */}
-        <div className="rounded-3xl bg-[#101012] p-6">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-semibold text-white">Your Groups</h2>
+        <div className="rounded-2xl sm:rounded-3xl bg-[#101012] p-4 sm:p-6">
+          <div className="flex items-center justify-between mb-4 sm:mb-8">
+            <h2 className="text-xl sm:text-2xl font-semibold text-white">
+              Your Groups
+            </h2>
             <Link
               href="/groups"
-              className="text-white font-medium flex items-center gap-2 rounded-full border border-white/80 px-4 py-2 hover:bg-white/[0.03] transition-colors"
+              className="text-white font-medium flex items-center gap-1 sm:gap-2 rounded-full border border-white/80 px-3 sm:px-4 py-1.5 sm:py-2 hover:bg-white/[0.03] transition-colors text-mobile-sm sm:text-base"
             >
-              <Users2 className="h-5 w-5" />
+              <Users2 className="h-4 w-4 sm:h-5 sm:w-5" />
               <span>View All</span>
             </Link>
           </div>
 
-          <div className="space-y-6">
+          <div className="space-y-4 sm:space-y-6">
             {isGroupsLoading ? (
-              <div className="flex items-center justify-center p-8">
-                <Loader2 className="h-6 w-6 animate-spin text-white/50" />
-                <span className="ml-2 text-white/70">Loading groups...</span>
+              <div className="flex items-center justify-center p-6 sm:p-8">
+                <Loader2 className="h-5 w-5 sm:h-6 sm:w-6 animate-spin text-white/50" />
+                <span className="ml-2 text-white/70 text-mobile-sm sm:text-base">
+                  Loading groups...
+                </span>
               </div>
             ) : groups && groups.length > 0 ? (
               groups.slice(0, 4).map((group) => (
                 <Link href={`/groups/${group.id}`} key={group.id}>
-                  <div className="flex items-center justify-between hover:bg-white/[0.02] p-3 rounded-lg transition-colors">
-                    <div className="flex items-center gap-4">
-                      <div className="h-14 w-14 overflow-hidden rounded-xl bg-white/[0.03]">
+                  <div className="flex items-center justify-between hover:bg-white/[0.02] p-2 sm:p-3 rounded-lg transition-colors">
+                    <div className="flex items-center gap-3 sm:gap-4">
+                      <div className="h-10 w-10 sm:h-14 sm:w-14 overflow-hidden rounded-xl bg-white/[0.03]">
                         {group.image ? (
                           <Image
                             src={group.image}
@@ -354,10 +360,10 @@ export default function Page() {
                         )}
                       </div>
                       <div>
-                        <p className="text-xl text-white font-medium">
+                        <p className="text-mobile-base sm:text-xl text-white font-medium">
                           {group.name}
                         </p>
-                        <p className="text-base text-white/60">
+                        <p className="text-mobile-sm sm:text-base text-white/60">
                           {/* We'll need to calculate the actual balances here */}
                           {/* For now just display default text */}
                           View group details
@@ -368,7 +374,7 @@ export default function Page() {
                 </Link>
               ))
             ) : (
-              <div className="text-white/70 text-center py-8">
+              <div className="text-white/70 text-center py-6 sm:py-8 text-mobile-sm sm:text-base">
                 No groups created yet. Create a group to get started!
               </div>
             )}
