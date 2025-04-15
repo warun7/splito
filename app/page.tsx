@@ -80,7 +80,7 @@ export default function Page() {
             ) : youOwe.length > 0 ? (
               <div>
                 Overall, you owe{" "}
-                <span className="text-[#FF4444]">
+                <span className="font-inter font-semibold text-[18px] leading-[100%] tracking-[-0.04em] text-[#FF4444]">
                   {youOwe.map((debt) => `$${debt.amount}`).join(", ")}
                 </span>
               </div>
@@ -150,7 +150,7 @@ export default function Page() {
           <div className="flex items-center mb-4">
             <span className="text-white/60 text-xl">You owed this month</span>
           </div>
-          <p className="text-4xl font-semibold text-white">
+          <p className="font-inter font-semibold text-[24px] leading-[100%] tracking-[-0.04em] text-white">
             {monthlyStats.owed}
           </p>
         </div>
@@ -159,7 +159,7 @@ export default function Page() {
           <div className="flex items-center mb-4">
             <span className="text-white/60 text-xl">You lent this month</span>
           </div>
-          <p className="text-4xl font-semibold text-white">
+          <p className="font-inter font-semibold text-[24px] leading-[100%] tracking-[-0.04em] text-white">
             {monthlyStats.lent}
           </p>
         </div>
@@ -170,7 +170,7 @@ export default function Page() {
               You settled this month
             </span>
           </div>
-          <p className="text-4xl font-semibold text-white">
+          <p className="font-inter font-semibold text-[24px] leading-[100%] tracking-[-0.04em] text-white">
             {monthlyStats.settled}
           </p>
         </div>
@@ -181,7 +181,9 @@ export default function Page() {
         {/* Friends block (wider) */}
         <div className="lg:col-span-2 rounded-3xl bg-[#101012] p-6">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="text-2xl font-semibold text-white">Your Friends</h2>
+            <h2 className="text-2xl font-semibold text-[#FFFFFF]/60">
+              Your Friends
+            </h2>
             <button className="flex items-center gap-2 text-white/60 hover:text-white transition-colors">
               <Image
                 src="/plus-sign-circle.svg"
@@ -245,14 +247,14 @@ export default function Page() {
                             {friendBalance.amount > 0 ? (
                               <>
                                 Owes you{" "}
-                                <span className="text-[#53e45d]">
+                                <span className="font-inter font-semibold text-[16px] leading-[100%] tracking-[-0.04em] text-[#53e45d]">
                                   ${Math.abs(friendBalance.amount).toFixed(2)}
                                 </span>
                               </>
                             ) : friendBalance.amount < 0 ? (
                               <>
                                 You owe{" "}
-                                <span className="text-[#FF4444]">
+                                <span className="font-inter font-semibold text-[16px] leading-[100%] tracking-[-0.04em] text-[#FF4444]">
                                   ${Math.abs(friendBalance.amount).toFixed(2)}
                                 </span>
                               </>

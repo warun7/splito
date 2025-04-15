@@ -34,7 +34,7 @@ export default function RootLayout({
                 <Sidebar />
                 <MobileMenuToggle />
                 <div className="min-[1025px]:pl-[260px] min-h-screen flex flex-col">
-                  <main className="flex-1 bg-[#09090B] p-4 pt-16 min-[1025px]:pt-4 min-[1125px]:p-8 relative">
+                  <main className="flex-1 bg-[#09070B]/80 p-4 pt-16 min-[1025px]:pt-4 min-[1125px]:p-8 relative">
                     <div className="w-full">{children}</div>
                   </main>
                 </div>
